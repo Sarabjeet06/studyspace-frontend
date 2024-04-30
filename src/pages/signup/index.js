@@ -73,7 +73,7 @@ const signup = () => {
     <div className='flex gap-0'>
       <div className='w-full flex justify-center md:w-1/2'>
         <div className='w-10/12 h-screen flex  flex-col justify-center align-middle gap-2 md:w-3/4'>
-          <div className='flex justify-center uppercase text-lg font-sans'>study space</div>
+          <div className='flex justify-center uppercase font_junge_custom font-bold text-xl'>study space</div>
           <div>
             <form className='flex flex-col gap-5' onSubmit={(e)=>{e.preventDefault(); handleSignup()}}>
               <div className='flex flex-col gap-2' >

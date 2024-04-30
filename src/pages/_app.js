@@ -1,13 +1,31 @@
 import "@/styles/globals.css";
-import Head from "next/head";
+import { Inter, Poppins ,Junge } from "next/font/google";
+
+const inter_init = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter",
+});
+
+const poppins_init = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+});
+
+const junge_init = Junge({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-junge",
+});
+
 export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Junge&display=swap" rel="stylesheet" />
-      </Head>
-      <Component {...pageProps} />
+      <div className={`${inter_init.variable} ${poppins_init.variable} ${junge_init.variable}`}>
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font_inter_custom {
+    font-family: var(--font-inter);
+}
+
+.font_poppins_custom {
+    font-family: var(--font-poppins);
+}
+
+.font_junge_custom {
+    font-family: var(--font-junge);
+}
