@@ -3,7 +3,7 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Junge', 'sans-serif'],
+        sans: ['sans-serif'],
       },
     },
   },
