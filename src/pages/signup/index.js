@@ -5,6 +5,7 @@ import { signInWithGoogle } from '@/utils/firebase';
 import { BACKEND_URL } from '../../../config';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from '@/utils/firebase';
+import { useToast } from "@/components/ui/use-toast";
 
 const signup = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const signup = () => {
   const [againPassword, setAgainPassword] = useState("");
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const { toast } = useToast();
 
   const signInWithGoogle = async () => {
     try {
@@ -60,6 +62,9 @@ const signup = () => {
         const data = await res.json();
         console.log("user add ho gaya");
         console.log(data);
+        toast({
+          description: "User created successfully",
+        })
       } else {
         console.log(res);
         console.log("ok nhi hai response");

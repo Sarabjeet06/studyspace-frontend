@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
-import { Inter, Poppins ,Junge } from "next/font/google";
+import { Inter, Poppins, Junge } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner"
 
 const inter_init = Inter({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <div className={`${inter_init.variable} ${poppins_init.variable} ${junge_init.variable}`}>
+        <Toaster />
         <Component {...pageProps} />
       </div>
     </>
