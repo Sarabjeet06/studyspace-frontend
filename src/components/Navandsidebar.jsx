@@ -33,7 +33,7 @@ const Navandsidebar = () => {
                     <div className='hover:bg-blue-200 rounded-full text-lg'>calendar</div>
                     <div className='hover:bg-blue-200 rounded-full text-lg'>Spaces</div>
                     <div className='hover:bg-blue-200 rounded-full text-lg'>Archieved</div>
-
+                    <div className='hover:bg-blue-200 rounded-full text-lg'>Archieved</div>
                 </div>
             </div>
         </div>
