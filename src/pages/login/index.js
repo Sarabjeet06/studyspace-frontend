@@ -5,6 +5,7 @@ import { BACKEND_URL } from '../../../config';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from '@/utils/firebase';
 
+
 const loginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
