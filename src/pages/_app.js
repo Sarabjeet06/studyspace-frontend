@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <div className={`${inter_init.variable} ${poppins_init.variable} ${junge_init.variable}`}>
-        <Toaster />
+        <Toaster richColors position="top-right" />
         <Component {...pageProps} />
       </div>
     </>
