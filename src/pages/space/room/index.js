@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import People from "@/components/People";
 
 const index = () => {
    return (
@@ -18,6 +19,9 @@ const index = () => {
             </TabsList>
             <TabsContent value="stream">Make changes to your account here.</TabsContent>
             <TabsContent value="classwork">Change your password here.</TabsContent>
+            <TabsContent value="people">
+               <People />
+            </TabsContent>
          </Tabs>
       </div>
    );
