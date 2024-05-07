@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { BACKEND_URL } from '../../../config';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from '@/utils/firebase';
+import { toast } from "sonner"
+import { useRouter } from 'next/router';
 
 
 const loginPage = () => {
@@ -11,6 +13,9 @@ const loginPage = () => {
     const [password, setPassword] = useState("");
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading1, setIsLoading1] = useState(false);
 
     const signInWithGoogle = async () => {
         try {
@@ -30,13 +35,16 @@ const loginPage = () => {
 
     const handleLogin = async (user = "") => {
         try {
+            
             var userDetails;
             if (user !== "") {
+                setIsLoading1(true);
                 userDetails = {
                     email: user?.email,
                     google_id: user?.uid,
                 }
             } else {
+                setIsLoading(true);
                 userDetails = {
                     email: email,
                     password: password,
@@ -49,16 +57,23 @@ const loginPage = () => {
                 },
                 body: JSON.stringify(userDetails),
             });
+            const data = await res.json();
             if (res.ok) {
-                const data = await res.json();
                 console.log("user login ho gaya");
                 console.log(data);
+                toast.success("Login Successfull");
+                router.push("/space");
             } else {
-                console.log(res);
+                console.log(data);
                 console.log("ok nhi hai response");
+                toast.error(data.message);
             }
         } catch (error) {
             console.log(error);
+            toast.error("Login failed");
+        }finally{
+            setIsLoading(false);
+            setIsLoading1(false);
         }
     }
 
@@ -90,7 +105,7 @@ const loginPage = () => {
                             </div>
 
                             <div className='flex flex-col gap-4'>
-                                <button type='submit' className='bg-gray-800 px-3 py-2 text-gray-200 rounded-md hover:bg-gray-700' >Login</button>
+                                <button type='submit' className={`bg-gray-800 px-3 py-2 text-gray-200 rounded-md hover:bg-gray-700 ${isLoading?'animate-pulse bg-gray-700': ''}`} >Login</button>
                             </div>
                         </form>
                         <div className='flex justify-around my-10 '>
@@ -99,7 +114,7 @@ const loginPage = () => {
                             <div className='w-5/12 h-px bg-gradient-to-r from-transparent via-slate-400 to-transparent relative top-2'></div>
                         </div>
                         <div className='w-full flex flex-col gap-3 '>
-                            <button className='w-full px-3 py-2 border border-gray-800 rounded-md' onClick={() => { signInWithGoogle() }}>Login with Google</button>
+                            <button className={`w-full px-3 py-2 border border-gray-800 rounded-md ${isLoading1?'animate-pulse bg-gray-400': ''} `} onClick={() => { signInWithGoogle() }}>Login with Google</button>
                             <div className='flex justify-center text-sm'>
                                 Are you new?
                                 <Link href='/signup' className=' ml-1 underline text-green-500 hover:text-green-400'>Create an account</Link>
