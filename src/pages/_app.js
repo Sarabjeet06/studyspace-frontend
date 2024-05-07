@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Inter, Poppins ,Junge } from "next/font/google";
+import { Inter, Poppins ,Junge  } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 
 const inter_init = Inter({
