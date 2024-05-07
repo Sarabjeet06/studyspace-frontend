@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar() {
@@ -10,8 +11,8 @@ export default function Navbar() {
             <div className='flex items-center hover:cursor-pointer hover:border-[#a64945]'>Contact Us</div>
         </div>
         <div className='flex items-center *:flex *:items-center *:mx-2 *:px-4 *:h-7 *:rounded-2xl'>
-            <button className='bg-[#a64945] text-amber-300 hover:bg-transparent hover:text-amber-950 border border-[#a64945]'>Log in</button>
-            <button className='border border-[#a64945] text-amber-950 hover:bg-[#a64945] hover:text-amber-300'>Sign up</button>
+            <Link href="/login" className='bg-[#a64945] text-amber-300 hover:bg-transparent hover:text-amber-950 border border-[#a64945]'>Log in</Link>
+            <Link href="/signup" className='border border-[#a64945] text-amber-950 hover:bg-[#a64945] hover:text-amber-300'>Sign up</Link>
         </div>
     </div>
   )
