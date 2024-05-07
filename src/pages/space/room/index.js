@@ -3,8 +3,10 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import People from "@/components/People";
+import { useState } from "react";
 
 const index = () => {
+   const [name, setName] = useState("Teachers");
    return (
       <div>
          <Tabs
@@ -20,7 +22,7 @@ const index = () => {
             <TabsContent value="stream">Make changes to your account here.</TabsContent>
             <TabsContent value="classwork">Change your password here.</TabsContent>
             <TabsContent value="people">
-               <People />
+               <People name = {name} />
             </TabsContent>
          </Tabs>
       </div>

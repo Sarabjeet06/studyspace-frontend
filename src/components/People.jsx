@@ -1,11 +1,12 @@
 import React from 'react'
+import { useState } from 'react'
 
-const People = () => {
+const People = ({name}) => {
     return (
         <div>
             I am People
-            <div>
-                
+            <div className='text-center'>
+                {name}
             </div>
         </div>
     )

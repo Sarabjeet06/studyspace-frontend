@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { IconJarLogoIcon } from '@radix-ui/react-icons'
 
 const Card = ({ name }) => {
     return (
