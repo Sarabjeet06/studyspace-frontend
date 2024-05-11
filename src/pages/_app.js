@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Inter, Poppins ,Junge } from "next/font/google";
+import { Inter, Poppins, Junge, Montserrat } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 
 const inter_init = Inter({
@@ -19,12 +19,17 @@ const junge_init = Junge({
   weight: ["400"],
   variable: "--font-junge",
 });
+const montserrat_init = Montserrat({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-montserrat",
+});
 
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <div className={`${inter_init.variable} ${poppins_init.variable} ${junge_init.variable}`}>
-        <Toaster />
+      <div className={`${inter_init.variable} ${poppins_init.variable} ${junge_init.variable} ${montserrat_init.variable}`}>
+        <Toaster richColors position="top-right" />
         <Component {...pageProps} />
       </div>
     </>
