@@ -12,7 +12,7 @@ export default function Stream() {
   }
 
   return (
-    <div className='bg-gray-50 py-1'>
+    <div className='py-1'>
       <div className='w-11/12 mx-auto my-10'>
         <div className='relative h-64 w-full bg-blue-500 rounded-xl'>
           <Image 

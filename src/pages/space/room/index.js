@@ -13,7 +13,7 @@ const index = () => {
    return (
       <div>
          <Homenavbar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-         <div className='w-full flex gap-0'>
+         <div className='w-full flex gap-0 bg-gray-50'>
             <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'}`}>
                <Homesidemenubar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
             </div>
