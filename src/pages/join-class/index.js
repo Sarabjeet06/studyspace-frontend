@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
+import { BACKEND_URL } from "../../../config";
 
 const index = () => {
       const router = useRouter();

@@ -9,8 +9,8 @@ const Homenavbar = ({ menuClicked, setMenuClicked }) => {
 
     return (
         <div>
-            <div className="fixed z-10  w-full flex justify-between border border-b-2 border-gray-200 bg-slate-100 px-3 py-2 ">
-                <div className='flex  gap-2'>
+            <div className="fixed z-10 top-0 w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-2 ">
+                <div className='flex gap-2'>
                     <div className="hover:cursor-pointer hover:bg-gray-200 p-2  hover:rounded-full" onClick={() => { setMenuClicked(!menuClicked) }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />

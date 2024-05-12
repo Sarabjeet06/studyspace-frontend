@@ -4,8 +4,12 @@ import { LuUserPlus } from "react-icons/lu";
 import { Montserrat } from 'next/font/google';
 import Image from 'next/image';
 import { IoMdMore } from "react-icons/io";
+import InviteUserModal from './inviteUserModal';
+import JoinClassModal from './joinClassModal';
 
 const People = ({ name }) => {
+    const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
     return (
         <div>
             <div className='max-w-4xl mx-auto p-2'>
@@ -15,7 +19,15 @@ const People = ({ name }) => {
                         {name}
                     </div>
                     <div className='hover:bg-slate-100 rounded-full p-2'>
-                        <LuUserPlus size={30} />
+                        <div
+                            onClick={() => {
+                                setOpen2(true);
+                            }}
+                            className="border-3 rounded-md"
+                        >
+                            {" "}
+                            <LuUserPlus size={30} />
+                        </div>
                     </div>
                 </div>
 
@@ -54,7 +66,8 @@ const People = ({ name }) => {
                     <hr />
                 </div>
             </div>
-        </div>
+            <InviteUserModal open={open2} setOpen={setOpen2} />
+        </div >
     )
 }
 

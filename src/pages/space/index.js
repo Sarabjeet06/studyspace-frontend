@@ -9,12 +9,12 @@ const index = () => {
   return (
     <div>
       <Homenavbar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-      <div className='w-full flex gap-0'>
-        <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'}`}>
+      <div className='w-full sm:flex gap-0 bg-gray-50'>
+        <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'} ${menuClicked ? 'block' : 'hidden'} sm:block`}>
           <Homesidemenubar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
         </div>
-        <div className={`${menuClicked ? 'w-10/12' : 'w-11/12'}`} >
-          <div class="grid lg:grid-cols-3 gap-4 px-8 py-10 my-6">
+        <div className={`${menuClicked ? 'w-11/12' : 'w-11/12'} mx-auto`} >
+          <div class="flex flex-wrap overflow-y-auto mx-auto sm:ml-2 ml-2 gap-4 sm:px-8 px-2 py-10 my-6">
             <Card />
             <Card />
             <Card />

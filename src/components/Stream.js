@@ -12,14 +12,18 @@ export default function Stream() {
   }
 
   return (
-    <div className='bg-gray-50 py-1'>
-      <div className='w-11/12 mx-auto my-10'>
+    <div className=''>
+      <div className='w-full'>
         <div className='relative h-64 w-full bg-blue-500 rounded-xl'>
           <Image 
+          unoptimized
+          quality={100}
+          src={"https://res.cloudinary.com/dqpirrbuh/image/upload/v1714684229/zy4i_hjsz_210617_qqbclc.jpg"}
             className='object-cover h-full w-full rounded-xl'
             width={100}
             height={100}> 
           </Image>
+          <div className='absolute top-0 left-0 w-full rounded-lg h-full bg-gradient-to-t from-black/30 to-white/10'></div>
           <div className='absolute bottom-5 left-6'>
             <div className='text-white text-4xl font-bold'>StudySpace</div>
             <div className='text-white text-lg'>Web-Development Course</div>
