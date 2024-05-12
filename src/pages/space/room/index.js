@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
+import Classwork from "@/components/Classwork";
 
 const index = () => {
    const [menuClicked, setMenuClicked] = useState(false);
@@ -26,7 +27,7 @@ const index = () => {
                      <TabsTrigger value="grade">grade</TabsTrigger>
                   </TabsList>
                   <TabsContent value="stream">Make changes to your account here.</TabsContent>
-                  <TabsContent value="classwork">Change your password here.</TabsContent>
+                  <TabsContent value="classwork"><Classwork /></TabsContent>
                </Tabs>
             </div>
          </div>
