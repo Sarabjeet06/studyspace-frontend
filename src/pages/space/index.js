@@ -14,7 +14,7 @@ const index = () => {
           <Homesidemenubar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
         </div>
         <div className={`${menuClicked ? 'w-11/12' : 'w-11/12'} mx-auto`} >
-          <div class="flex flex-wrap overflow-y-auto mx-auto sm:ml-2 ml-2 gap-4 sm:px-8 px-2 py-10 my-6">
+          <div className="flex flex-wrap overflow-y-auto mx-auto sm:ml-2 ml-2 gap-4 sm:px-8 px-2 py-10 my-6">
             <Card />
             <Card />
             <Card />
