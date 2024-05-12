@@ -11,8 +11,8 @@ const index = () => {
   return (
     <div>
       <Homenavbar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-      <div className='w-full flex gap-0 bg-gray-50'>
-        <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'}`}>
+      <div className='w-full sm:flex gap-0 bg-gray-50'>
+        <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'} ${menuClicked ? 'block' : 'hidden'} sm:block`}>
           <Homesidemenubar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
         </div>
         <div className={`${menuClicked ? 'w-10/12' : 'w-11/12'}`} >
