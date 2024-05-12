@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 const Card = ({ name }) => {
     return (
-        <div class="border border-gray-300 rounded-md shadow-md">
+        <div class="border max-w-80 mx-auto border-gray-300 rounded-md shadow-md">
             <div className='relative'>
-                <Image src="/images/CardTeacher.jpg" width={300} height={200} alt='Card Image' className='w-full' />
+                <Image src="/images/CardTeacher.jpg" width={300} height={200} alt='Card Image' className='w-full rounded-md' />
                 <Image src="/images/User.jpg" width={100} height={50} alt='Card Image' className='rounded-full absolute -bottom-8 right-5 md:-bottom-8 md:right-10 md:z-50' />
             </div>
             <div class="p-4">

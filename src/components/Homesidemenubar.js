@@ -16,7 +16,7 @@ const Homesidemenubar = ({ menuClicked, setMenuClicked }) => {
     
     return (
         <div className='fixed z-10 left-0 top-14'>
-            <div className={`flex flex-col gap-5 h-screen border-r-2 border-gray-200 overflow-x-auto p-3  ${menuClicked ? '' : 'items-center'}  bg-slate-100  `} onMouseEnter={() => { setMenuClicked(true) }} onMouseLeave={() => { setMenuClicked(false) }}>
+            <div className={`flex flex-col gap-5 h-screen border-r-2 border-gray-200 overflow-x-auto p-3  ${menuClicked ? '' : 'items-center'}  bg-white  `} onMouseEnter={() => { setMenuClicked(true) }} onMouseLeave={() => { setMenuClicked(false) }}>
                 <Link href="/space" className={`w-fit flex gap-4 ${menuClicked ? '' : ''} ${pathname === '/space' ? 'hover:bg-blue-200' : ''} hover:bg-blue-100 hover:cursor-pointer hover:rounded-md  px-2 py-1`}>
                     <div className=''>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door-fill" viewBox="0 0 16 16">
