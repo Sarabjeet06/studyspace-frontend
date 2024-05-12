@@ -6,7 +6,7 @@ import Stream from "@/components/Stream";
 import People from "@/components/People";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
-import { Montserrat } from "next/font/google";
+import Classwork from "@/components/Classwork";
 
 const index = () => {
    const [menuClicked, setMenuClicked] = useState(false);
@@ -29,7 +29,7 @@ const index = () => {
                      <TabsTrigger value="grade">grade</TabsTrigger>
                   </TabsList>
                   <TabsContent value="stream"><Stream/></TabsContent>
-                  <TabsContent value="classwork">Change your password here.</TabsContent>
+                  <TabsContent value="classwork"><Classwork /></TabsContent>
                   <TabsContent value="people">
                      <People name = {"Teacher"} />
                      <People name = {"Student"} />
