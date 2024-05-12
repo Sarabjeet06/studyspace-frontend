@@ -1,10 +1,13 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar() {
   return (
     <div className='flex fixed top-0 justify-between px-3 md:px-20 h-12 w-full bg-white items-center text-sm z-50 shadow-md'>
-        <div>Logo</div>
+        <div>
+          <Image src="/images/Logo.png" width={100} height={100} alt='Logo' className='w-full' />
+        </div>
         <div className='hidden sm:flex *:px-3 *:h-12 *:border-b-4 *:border-white'>
             <div className='flex items-center hover:cursor-pointer hover:border-green-500'>Home</div>
             <div className='flex items-center hover:cursor-pointer hover:border-green-500'>About Us</div>
