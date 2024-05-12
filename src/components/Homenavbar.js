@@ -5,8 +5,8 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-const Homenavbar = ({menuClicked, setMenuClicked}) => {
-    
+const Homenavbar = ({ menuClicked, setMenuClicked }) => {
+
     return (
         <div>
             <div className="fixed z-10 top-0 w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-2 ">
@@ -16,8 +16,9 @@ const Homenavbar = ({menuClicked, setMenuClicked}) => {
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                         </svg>
                     </div>
-                    <div className="text-lg uppercase leading-8">StudySpace</div>
+
                 </div>
+                <div className="text-lg uppercase leading-8">StudySpace</div>
                 <div className='flex '>
 
                     <Popover>

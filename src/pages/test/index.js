@@ -1,5 +1,3 @@
-/** @format */
-
 import InviteUserModal from "@/components/inviteUserModal";
 import JoinClassModal from "@/components/joinClassModal";
 import React, { useState } from "react";
