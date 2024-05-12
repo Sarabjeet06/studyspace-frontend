@@ -11,8 +11,8 @@ export default function Navbar() {
             <div className='flex items-center hover:cursor-pointer hover:border-green-500'>Contact Us</div>
         </div>
         <div className='flex items-center *:flex *:items-center *:mx-2 *:px-4 *:h-7 *:rounded-2xl'>
-            <button className='bg-green-600 text-white hover:bg-transparent hover:text-amber-950 border border-green-600'>Log in</button>
-            <button className='border border-green-600 text-amber-950 hover:bg-green-600 hover:text-white'>Sign up</button>
+            <Link href="/login" className='bg-green-600 text-white hover:bg-transparent hover:text-amber-950 border border-green-600'>Log in</Link>
+            <Link href="/signup" className='border border-green-600 text-amber-950 hover:bg-green-600 hover:text-white'>Sign up</Link>
         </div>
     </div>
   )
