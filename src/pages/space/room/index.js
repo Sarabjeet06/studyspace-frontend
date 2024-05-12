@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import People from "@/components/People";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
 import Classwork from "@/components/Classwork";
@@ -28,6 +29,10 @@ const index = () => {
                   </TabsList>
                   <TabsContent value="stream">Make changes to your account here.</TabsContent>
                   <TabsContent value="classwork"><Classwork /></TabsContent>
+                  <TabsContent value="people">
+                     <People name = {"Teacher"} />
+                     <People name = {"Student"} />
+                  </TabsContent>
                </Tabs>
             </div>
          </div>

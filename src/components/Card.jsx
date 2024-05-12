@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
-const Card = () => {
+const Card = ({ name }) => {
     return (
         <div class="border border-gray-300 rounded-md shadow-md">
             <div className='relative'>
