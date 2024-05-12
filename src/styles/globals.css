@@ -83,3 +83,7 @@
 .font_poppins_custom {
   font-family: var(--font-poppins);
 }
+
+.font_montserrat_custom {
+  font-family: var(--font-montserrat);
+}

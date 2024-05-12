@@ -10,12 +10,15 @@ const GradeTable = () => {
          header: <div className="font_inter_custom">Students</div>,
          cell: ({ row }) => {
             return (
-                  <div className="flex text-slate-500 font_inter_custom items-center gap-2">
-                        <img className="w-8 h-8 rounded-full" src="https://github.com/shadcn.png"/>
-                        {row.getValue("name")}
-                  </div>
-            )
-         }
+               <div className="flex text-slate-500 font_inter_custom items-center gap-2">
+                  <img
+                     className="w-8 h-8 rounded-full"
+                     src="https://github.com/shadcn.png"
+                  />
+                  {row.getValue("name")}
+               </div>
+            );
+         },
       },
       {
          accessorKey: "assign_1",
@@ -32,18 +35,18 @@ const GradeTable = () => {
             if (openBox) {
                return (
                   <div className="text-left font_inter_custom w-full flex items-center gap-2 font-medium">
-                     <input className="border rounded-md p-1 w-1/2 outline-none" />{" "} _ 100
+                     <input className="border rounded-md p-1 w-8 outline-none" /> / 100
                      <div
                         onClick={() => {
                            setOpenBox(!openBox);
                         }}
-                        className="text-xs"
+                        className="text-xs p-1 rounded-md border-green-500 border"
                      >
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
-                           width="16"
-                           height="16"
-                           fill="currentColor"
+                           width="10"
+                           height="10"
+                           fill="#90d65a"
                            class="bi bi-check2"
                            viewBox="0 0 16 16"
                         >
@@ -54,10 +57,18 @@ const GradeTable = () => {
                         onClick={() => {
                            setOpenBox(!openBox);
                         }}
-                        className="text-xs"
-                     ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                   </svg>
+                        className="text-xs p-1 rounded-md border-red-400 border"
+                     >
+                        <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="10"
+                           height="10"
+                           fill="#c23323"
+                           class="bi bi-x-lg"
+                           viewBox="0 0 16 16"
+                        >
+                           <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
                      </div>
                   </div>
                );
