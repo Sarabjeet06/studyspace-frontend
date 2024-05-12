@@ -169,7 +169,7 @@ const GradeTable = () => {
    ];
 
    return (
-      <section className="px-10 py-5">
+      <section className="py-2">
          <div className="text-xl font-medium my-2 font_inter_custom">Grade Section</div>
          <div className="w-full my-3 h-[1px] bg-slate-300"></div>
          <DataTable

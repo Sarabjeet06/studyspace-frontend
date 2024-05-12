@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Stream from "@/components/Stream";
 import People from "@/components/People";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
@@ -51,6 +52,7 @@ let tabs = [
       ),
    },
 ];
+import Classwork from "@/components/Classwork";
 
 const index = () => {
    const [menuClicked, setMenuClicked] = useState(false);
@@ -85,7 +87,7 @@ const index = () => {
                         {activeTab === tab.id && (
                            <motion.span
                               layoutId="bubble"
-                              className="absolute rounded-lg inset-0 z-10 bg-white mix-blend-difference"
+                              className="absolute rounded-lg inset-0 z-0 bg-white mix-blend-exclusion"
                               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                            />
                         )}
@@ -96,10 +98,10 @@ const index = () => {
                <div className="w-full my-3 h-[2px] bg-slate-200"></div>
                <div>
                   {
-                     activeTab === "stream" && "Make changes to your account here."
+                     activeTab === "stream" && <Stream/>
                   }
                   {
-                     activeTab === "classwork" && "Change your password here."
+                     activeTab === "classwork" && <Classwork/>
                   }
                   {
                      activeTab === "people" && <>  <People name={"Teacher"} />
@@ -115,6 +117,14 @@ const index = () => {
                >
                   <TabsContent value="stream"></TabsContent>
                   <TabsContent value="classwork">Change your password here.</TabsContent>
+                  <TabsList>
+                     <TabsTrigger value="stream">Stream</TabsTrigger>
+                     <TabsTrigger value="classwork">Classwork</TabsTrigger>
+                     <TabsTrigger value="people">people</TabsTrigger>
+                     <TabsTrigger value="grade">grade</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="stream"><Stream/></TabsContent>
+                  <TabsContent value="classwork"><Classwork /></TabsContent>
                   <TabsContent value="people">
                      <People name={"Teacher"} />
                      <People name={"Student"} />
