@@ -75,3 +75,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+.font_inter_custom {
+  font-family: var(--font-inter);
+}
+
+.font_poppins_custom {
+  font-family: var(--font-poppins);
+}
+
+.font_montserrat_custom {
+  font-family: var(--font-montserrat);
+}

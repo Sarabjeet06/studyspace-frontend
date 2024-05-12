@@ -26,7 +26,7 @@ export default function Stream() {
           </div>
         </div>
         <div className='flex lg:flex-row flex-col gap-8 mt-8'>
-          <div className='lg:block hidden rounded shadow-md w-52 p-3 text-center bg-white'>
+          <div className='lg:flex lg:flex-col gap-3 hidden rounded shadow-md w-52 h-fit min-h-48 p-3 text-center bg-white'>
             <div className='font-semibold'>Upcoming work</div>
             <div>No upcoming work</div>
           </div>
@@ -40,8 +40,8 @@ export default function Stream() {
                     <textarea className={`bg-gray-100 w-full h-full text-sm text-left text-black px-5 py-3 rounded outline-none`}  name="announcement" id="announcement">
                     </textarea>
                     <div className='flex gap-3'>
-                      <button className='w-fit px-3 py-1 bg-gray-100 rounded'>Post</button>
-                      <button onClick={handleClick} className='w-fit px-3 py-1 bg-gray-100 rounded'>cancel</button>
+                      <button className='w-fit px-3 py-1 bg-blue-500 text-white hover:bg-blue-600 rounded'>Post</button>
+                      <button onClick={handleClick} className='w-fit px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded'>cancel</button>
                     </div>
                   </div>
                 }
