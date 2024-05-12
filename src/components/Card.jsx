@@ -10,8 +10,8 @@ const Card = ({ className, classBtn, classDescription, ImagePath, ImageUser }) =
                 <Image src={ImageUser} width={100} height={50} alt='Card Image' className='rounded-full absolute -bottom-8 right-5 md:-bottom-8 md:right-10 md:z-50' />
             </div>
             <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{className}</h3>
-                <p className="text-gray-700 mb-4">{classDescription}</p>
+                <div className="text-lg font-semibold mb-2">{className}</div>
+                <div className="text-gray-700 mb-4">{classDescription}</div>
                 <a href="#" className="bg-blue-100">
                 <Button>{classBtn}</Button>
                 </a>
