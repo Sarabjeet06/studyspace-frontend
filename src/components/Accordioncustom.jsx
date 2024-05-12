@@ -4,14 +4,13 @@ import React, { useEffect, useState } from 'react'
 const Accordioncustom = ({ menuClicked }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-
     useEffect(() => {
         if (menuClicked) {
             setIsOpen(true);
         } else {
             setIsOpen(false);
         }
-    })
+    },[menuClicked]);
 
     return (
         <div>
