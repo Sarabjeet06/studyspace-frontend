@@ -13,7 +13,16 @@ import Accordioncustom from './Accordioncustom';
 const Homesidemenubar = ({ menuClicked, setMenuClicked }) => {
     const pathname = usePathname();
     console.log(pathname);
-    
+
+    const [teacherIcon, setTeacherIcon] = useState(<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+    </svg>);
+
+    const [studentIcon, setStudentIcon] = useState(<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
+    <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
+  </svg>);
+
     return (
         <div className='fixed z-10 left-0 top-14'>
             <div className={`flex flex-col gap-5 h-screen border-r-2 border-gray-200 overflow-x-auto p-3  ${menuClicked ? '' : 'items-center'}  bg-white  `} onMouseEnter={() => { setMenuClicked(true) }} onMouseLeave={() => { setMenuClicked(false) }}>
