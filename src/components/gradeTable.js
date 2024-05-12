@@ -13,7 +13,7 @@ const GradeTable = () => {
                <div className="flex text-slate-500 font_inter_custom items-center gap-2">
                   <img
                      className="w-8 h-8 rounded-full"
-                     src="https://github.com/shadcn.png"
+                     src={`https://robohash.org/${row.getValue("name")}?set=set2`}
                   />
                   {row.getValue("name")}
                </div>
