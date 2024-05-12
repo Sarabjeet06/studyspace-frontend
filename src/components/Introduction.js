@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Introduction() {
   return (
     <div>
-        <div className="flex flex-col-reverse lg:flex-row justify-evenly mt-12 mb-16">
+        <div className="flex flex-col-reverse lg:flex-row justify-evenly mt-12 mb-16 mx-auto w-fit">
         <div className="flex flex-col lg:w-1/2">
             <div className="relative w-80 h-80 sm:w-96 sm:h-96 overflow-hidden mx-auto">
                 <Image
@@ -23,7 +23,7 @@ export default function Introduction() {
                 </div>
             </div>
         </div>
-        <div className="lg:w-1/2 h-full mx-auto">
+        <div className="lg:w-1/2 h-full mx-auto my-auto">
             <Image src="/images/Intro-pic.png" width={650} height={650}></Image>
         </div>
         </div>
