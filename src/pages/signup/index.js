@@ -18,6 +18,7 @@ const signup = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
+  const {space_id , source} = router.query;
 
   const signInWithGoogle = async () => {
     try {
@@ -71,7 +72,11 @@ const signup = () => {
       if (res.ok) {
         console.log("user add ho gaya");
         toast.success("Sign up Successfull");
-        router.push("/space");
+        if(space_id){
+          router.push(`/join-class?space_id=${space_id}&&email=${userDetails?.email}`);
+        }else{
+            router.push("/space");
+        }
       } else {
         console.log(data.message);
         console.log("ok nhi hai response");
