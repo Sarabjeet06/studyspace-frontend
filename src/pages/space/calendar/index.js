@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import Homenavbar from '@/components/Homenavbar'
+import HomePageLayout from '@/components/HomePageLayout';
 
 const calenderpage = () => {
-  const [menuClicked, setMenuClicked] = useState(false);
   return (
-    <div>
-        <Homenavbar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-       <div> CalenderPage</div>
-    </div>
+    <HomePageLayout>
+      calnder
+    </HomePageLayout>
   )
 }
 

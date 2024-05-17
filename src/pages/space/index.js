@@ -1,4 +1,5 @@
 import Card from '@/components/Card'
+import HomePageLayout from '@/components/HomePageLayout'
 import Homenavbar from '@/components/Homenavbar'
 import Homesidemenubar from '@/components/Homesidemenubar'
 import React, { useState } from 'react'
@@ -7,16 +8,9 @@ const index = () => {
   const [className, setClassName] = useState("Science")
   const [classBtn, setClassBtn] = useState("Enter Class Room")
   const [classDescription, setClassDescription] = useState("Non-Medical")
-  const [menuClicked, setMenuClicked] = useState(false);
   return (
-    <div>
-      <Homenavbar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-      <div className='w-full sm:flex gap-0 bg-gray-50'>
-        <div className={`${menuClicked ? 'w-2/12' : 'w-1/12'} ${menuClicked ? 'block' : 'hidden'} sm:block`}>
-          <Homesidemenubar menuClicked={menuClicked} setMenuClicked={setMenuClicked} />
-        </div>
-        <div className={`${menuClicked ? 'w-10/12' : 'w-11/12'}`} >
-          <div class="grid lg:grid-cols-3 md:grid-cols-2 ml-8 gap-4 px-8 py-10 my-6">
+    <HomePageLayout>
+          <div class="flex flex-wrap md:justify-between justify-center items-center md:p-16 p-6 gap-10">
             <Card className= {"Java"} classBtn = {classBtn} classDescription = {"Programming"} ImagePath = {"/images/Programming.avif"} ImageUser={"/images/User.jpg"} />
             <Card className= {"Python"} classBtn = {classBtn} classDescription = {"Programming"} ImagePath={"/images/Programming.jpg"} ImageUser={"/images/User2.jpg"} />
             <Card className= {"English"} classBtn = {classBtn} classDescription = {"Language"} ImagePath={"/images/English.avif"} ImageUser={"/images/User3.jpg"} />
@@ -27,9 +21,7 @@ const index = () => {
             <Card className= {className} classBtn = {classBtn} classDescription = {classDescription} ImagePath={"/images/Science.jpg"} ImageUser={"/images/User4.avif"} />
             <Card className= {className} classBtn = {classBtn} classDescription = {classDescription} ImagePath={"/images/Science.jpg"} ImageUser={"/images/User.jpg"} />
           </div>
-        </div>
-      </div>
-    </div>
+    </HomePageLayout>
 
   )
 }
