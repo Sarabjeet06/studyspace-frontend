@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,10 +18,17 @@ const HomePageLayout = ({ children }) => {
    const [openCreateModal, setOpenCreateModal] = useState(false);
    const pathname = usePathname();
    const context = useContext(Appcontext);
-   const { userDetails } = context;
+   const predefinedColors = ["#139A98", "#C3804A", "#17A34A", "#DC2625"];
+
+const getRandomColor = () => {
+   const randomIndex = Math.floor(Math.random() * predefinedColors.length);
+   return predefinedColors[randomIndex];
+};
+   const { userDetails, mySpaceArchiveList, mySpaceStudyList, mySpaceList } = context;
+
    return (
       <div className="w-full relative h-screen">
-         <div className="z-[200] fixed md:relative w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-3 ">
+         <div className="z-[50] fixed md:relative w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-3 ">
             <div className="flex   gap-2">
                <div
                   className="hover:cursor-pointer hover:bg-gray-200 p-2  hover:rounded-full"
@@ -249,51 +256,29 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand1 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="md:pl-5 pl-2 py-3 md:flex hidden flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand1 &&
+                     menuClicked &&
+                     mySpaceList &&
+                     mySpaceList?.map((space, index) => (
+                        <motion.div
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div style={{background : getRandomColor()}} className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center">
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                   {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     ))}
                </div>
 
                <div className="w-full">
@@ -354,51 +339,29 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand2 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="pl-5 py-3 md:flex hidden flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand2 &&
+                     menuClicked &&
+                     mySpaceStudyList &&
+                     mySpaceStudyList?.map((space, index) => (
+                        <motion.div
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div style={{background : getRandomColor()}} className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center">
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                   {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     ))}
                </div>
 
                <div className="w-full">
@@ -459,51 +422,29 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand3 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="pl-5  hidden py-3 md:flex flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand3 &&
+                     menuClicked &&
+                     mySpaceArchiveList &&
+                     mySpaceArchiveList?.map((space, index) => (
+                        <motion.div
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div style={{background : getRandomColor()}} className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center">
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                   {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     ))}
                </div>
             </div>
 

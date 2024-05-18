@@ -9,6 +9,7 @@ import { toast } from "sonner";
 const JoinClassModal = ({ open, setOpen }) => {
    const [loading, setLoading] = useState(false);
    const [spaceId, setSpaceId] = useState("");
+   
 
    const handle_join = async () => {
       try {
