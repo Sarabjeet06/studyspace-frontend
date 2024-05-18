@@ -54,6 +54,7 @@ let tabs = [
 ];
 import Classwork from "@/components/Classwork";
 import HomePageLayout from "@/components/HomePageLayout";
+import PeopleSkeleton from "@/components/PeopleSkeleton";
 
 const index = () => {
    const [menuClicked, setMenuClicked] = useState(false);
@@ -93,6 +94,8 @@ const index = () => {
                   {" "}
                   <People name={"Teacher"} />
                   <People name={"Student"} />
+                  <PeopleSkeleton />
+                  <PeopleSkeleton />
                </>
             )}
             {activeTab === "grade" && <GradeTable />}

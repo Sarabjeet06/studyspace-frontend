@@ -1,4 +1,5 @@
 import Card from '@/components/Card'
+import CardsSkeleton from '@/components/CardsSkeleton'
 import HomePageLayout from '@/components/HomePageLayout'
 import Homenavbar from '@/components/Homenavbar'
 import Homesidemenubar from '@/components/Homesidemenubar'
@@ -20,6 +21,7 @@ const index = () => {
             <Card className= {"Physical Education"} classBtn = {classBtn} classDescription = {"12th class"} ImagePath={"/images/Physical-Education.avif"} ImageUser={"/images/User3.jpg"} />
             <Card className= {className} classBtn = {classBtn} classDescription = {classDescription} ImagePath={"/images/Science.jpg"} ImageUser={"/images/User4.avif"} />
             <Card className= {className} classBtn = {classBtn} classDescription = {classDescription} ImagePath={"/images/Science.jpg"} ImageUser={"/images/User.jpg"} />
+            <CardsSkeleton />
           </div>
     </HomePageLayout>
 

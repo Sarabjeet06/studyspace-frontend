@@ -12,9 +12,7 @@ const Card = ({ className, classBtn, classDescription, ImagePath, ImageUser }) =
             <div className="p-4">
                 <div className="text-lg font-semibold mb-2">{className}</div>
                 <div className="text-gray-700 mb-4">{classDescription}</div>
-                <a href="#" className="bg-blue-100">
                 <Button>{classBtn}</Button>
-                </a>
             </div>
         </div>
     )
