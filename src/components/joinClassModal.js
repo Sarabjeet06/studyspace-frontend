@@ -1,28 +1,34 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
 import { BACKEND_URL } from "../../config";
 import { toast } from "sonner";
+import { Appcontext } from "@/context/AppContext";
 
 const JoinClassModal = ({ open, setOpen }) => {
    const [loading, setLoading] = useState(false);
    const [spaceId, setSpaceId] = useState("");
-   
-
+   const context = useContext(Appcontext);
+   const {userDetails , fetchSpaceList} = context;
    const handle_join = async () => {
       try {
             setLoading(true);
          const res = await fetch(`${BACKEND_URL}/api/classrooms/join_class`, {
             method: "POST",
+            headers : {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${context.sessionId}`,
+            },
             body: JSON.stringify({
                classroom_id: spaceId,
-               email: "",
+               email: userDetails?.email,
             }),
          });
          if (res.ok) {
             toast.success("Successfully joined");
+            fetchSpaceList();
          } else {
             toast.error("Couldn't join space");
          }
@@ -51,11 +57,11 @@ const JoinClassModal = ({ open, setOpen }) => {
                            unoptimized
                            height={100}
                            width={100}
-                           src="https://lh3.googleusercontent.com/a/ACg8ocKgsNycABiQ5SPkA_pCI9rPDmgPJhcmmcp91LspVnxOdhD4WyTu=s40-c"
+                           src={userDetails?.profile_url}
                         />
                         <div>
-                           <div>Unnat Das</div>
-                           <div className="text-xs text-gray-500">email@gmail.com</div>
+                           <div>{userDetails?.username || "No name"} </div>
+                           <div className="text-xs text-gray-500">{userDetails?.email || "No email"}</div>
                         </div>
                      </div>
                   </div>

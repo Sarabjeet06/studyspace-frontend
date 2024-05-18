@@ -15,7 +15,6 @@ const index = () => {
 
    const context = useContext(Appcontext);
    const { mySpaceList, mySpaceStudyList} = context;
-   console.log(mySpaceList)
    return (
       <HomePageLayout>
          <div class="flex flex-wrap md:justify-between justify-center items-center md:p-16 p-6 gap-10">
@@ -28,6 +27,7 @@ const index = () => {
                      classDescription={classroom?.classroom_section}
                      ImagePath={classroom?.classroom_background_url}
                      ImageUser={classroom?.created_by?.profile_url}
+                     archived={classroom?.archived}
                   />
                ))}
             {mySpaceStudyList &&
@@ -39,6 +39,7 @@ const index = () => {
                      classDescription={classroom?.classroom_section}
                      ImagePath={classroom?.classroom_background_url}
                      ImageUser={classroom?.created_by?.profile_url}
+                     archived={classroom?.archived}
                   />
                ))}
          </div>
