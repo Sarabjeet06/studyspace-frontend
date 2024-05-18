@@ -1,24 +1,24 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import JoinClassModal from "./joinClassModal";
 import InviteUserModal from "./inviteUserModal";
+import { Appcontext } from "@/context/AppContext";
 
 const HomePageLayout = ({ children }) => {
    const [menuClicked, setMenuClicked] = useState(false);
-
    const [expand1, setExpand1] = useState(true);
    const [expand2, setExpand2] = useState(true);
    const [expand3, setExpand3] = useState(true);
-
-   const [openJoinModal , setOpenJoinModal] = useState(false);
-   const [openCreateModal , setOpenCreateModal] = useState(false);
-
+   const [openJoinModal, setOpenJoinModal] = useState(false);
+   const [openCreateModal, setOpenCreateModal] = useState(false);
    const pathname = usePathname();
+   const context = useContext(Appcontext);
+   const { userDetails } = context;
    return (
       <div className="w-full relative h-screen">
          <div className="z-[200] fixed md:relative w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-3 ">
@@ -45,7 +45,7 @@ const HomePageLayout = ({ children }) => {
                </div>
             </div>
             <div className="text-lg uppercase leading-8">StudySpace</div>
-            <div className="flex ">
+            <div className="flex items-center gap-4 ">
                <Popover>
                   <PopoverTrigger>
                      <div className="hover:cursor-pointer p-2 hover:bg-gray-200  hover:rounded-full">
@@ -63,7 +63,12 @@ const HomePageLayout = ({ children }) => {
                   </PopoverTrigger>
                   <PopoverContent className="w-full">
                      <div className="text-sm">
-                        <div onClick={()=>{setOpenJoinModal(true)}} className="flex cursor-pointer my-2 items-center gap-2">
+                        <div
+                           onClick={() => {
+                              setOpenJoinModal(true);
+                           }}
+                           className="flex cursor-pointer my-2 items-center gap-2"
+                        >
                            <span>
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +82,12 @@ const HomePageLayout = ({ children }) => {
                            </span>
                            Join class
                         </div>
-                        <div  onClick={()=>{setOpenJoinModal(true)}} className="flex cursor-pointer my-2 items-center gap-2">
+                        <div
+                           onClick={() => {
+                              setOpenCreateModal(true);
+                           }}
+                           className="flex cursor-pointer my-2 items-center gap-2"
+                        >
                            <span>
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +104,13 @@ const HomePageLayout = ({ children }) => {
                      </div>
                   </PopoverContent>
                </Popover>
-
-               <div className="p-2">
+               {userDetails ? (
+                  <img
+                     className="w-9  h-9 rounded-full"
+                     src={userDetails?.profile_url}
+                     alt="profile_icon"
+                  />
+               ) : (
                   <svg
                      xmlns="http://www.w3.org/2000/svg"
                      width="22"
@@ -110,7 +125,7 @@ const HomePageLayout = ({ children }) => {
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
                      />
                   </svg>
-               </div>
+               )}
             </div>
          </div>
          {/* main section */}
@@ -501,8 +516,14 @@ const HomePageLayout = ({ children }) => {
             </div>
             <div className="mt-16 block md:hidden w-full h-[90vh] overflow-y-auto">{children}</div>
 
-            <JoinClassModal open={openJoinModal} setOpen={setOpenJoinModal}/>
-            <InviteUserModal open={openCreateModal} setOpen={setOpenCreateModal}/>
+            <JoinClassModal
+               open={openJoinModal}
+               setOpen={setOpenJoinModal}
+            />
+            <InviteUserModal
+               open={openCreateModal}
+               setOpen={setOpenCreateModal}
+            />
          </section>
       </div>
    );
