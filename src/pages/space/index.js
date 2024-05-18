@@ -1,6 +1,7 @@
 /** @format */
 
 import Card from "@/components/Card";
+import CardsSkeleton from "@/components/CardsSkeleton";
 import HomePageLayout from "@/components/HomePageLayout";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
