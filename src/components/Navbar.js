@@ -23,7 +23,7 @@ export default function Navbar() {
   return (
     <div className={`flex fixed top-0 justify-between px-3 md:px-16 py-2 w-full  items-center text-sm z-50 ${changeState ? "bg-green-600 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20  " : "bg-transparent"}  transition-all duration-300 ease-in-out`}>
         <div>
-          <Image src="/images/Logo.png" width={100} height={100} alt='Logo' className='w-full' />
+          <Image src="/images/Logo3.png" width={100} height={100} alt='Logo' className='w-full' />
         </div>
         <div className='hidden sm:flex *:px-3 *:h-14 gap-8 font_inter_custom font-medium '>
             <div className='flex items-center hover:cursor-pointer hover:border-green-500'>Home</div>
