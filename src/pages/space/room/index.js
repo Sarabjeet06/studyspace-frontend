@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Stream from "@/components/Stream";
 import People from "@/components/People";
@@ -55,11 +55,40 @@ let tabs = [
 import Classwork from "@/components/Classwork";
 import HomePageLayout from "@/components/HomePageLayout";
 import PeopleSkeleton from "@/components/PeopleSkeleton";
+import { BACKEND_URL } from "../../../../config";
+import { useRouter } from "next/router";
+import { Appcontext } from "@/context/AppContext";
 
 const index = () => {
    const [menuClicked, setMenuClicked] = useState(false);
    const [activeTab, setActiveTab] = useState(tabs[0].id);
 
+   const [UserRole , setUserRole] = useState(null);
+   const router = useRouter();
+   const { id } = router.query;
+   const context = useContext(Appcontext);
+   const {sessionId , userDetails} = context;
+   const handle_role = async ()=>{
+      try{
+         const res = await fetch(`${BACKEND_URL}/api/members/member_role?user_id=${userDetails?.user_id}&&classroom_id=${id}` , {
+            method : 'GET',
+            headers: {
+               Authorization: `Bearer ${sessionId}`,
+            },
+         });
+         if(res.ok){
+            const data = await res.json();
+            setUserRole(data?.role);
+         }
+      }catch(err){
+         console.error(err);
+      }
+   }
+
+   useEffect(()=>{
+      if(typeof id !== "undefined" && userDetails)
+      handle_role();
+   },[id]);
    return (
       <HomePageLayout>
          <section className="md:px-16 px-5 py-7">
@@ -91,11 +120,7 @@ const index = () => {
                {activeTab === "stream" && <Stream />}
                {activeTab === "classwork" && <Classwork />}
                {activeTab === "people" && (
-                  <>
-                     {" "}
-                     <People name={"Teacher"} />
                      <People name={"Student"} />
-                  </>
                )}
                {activeTab === "grade" && <GradeTable />}
             </div>

@@ -283,10 +283,11 @@ const HomePageLayout = ({ children }) => {
                      mySpaceList?.map((space, index) => {
                         if(space?.archived === false)return (
                         <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
                            initial={{ opacity: 0, translateY: 50 }}
                            animate={{ opacity: 1, translateY: 0 }}
                            transition={{ delay: 0.1 }}
-                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                           className="pl-5 py-3 cursor-pointer md:flex hidden flex-col gap-4"
                         >
                            <div className="flex items-start gap-2">
                               <div
@@ -370,10 +371,12 @@ const HomePageLayout = ({ children }) => {
                      mySpaceStudyList?.map((space, index) => {
                         if(space?.archived === false) return (
                         <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
+
                            initial={{ opacity: 0, translateY: 50 }}
                            animate={{ opacity: 1, translateY: 0 }}
                            transition={{ delay: 0.1 }}
-                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                           className="pl-5 cursor-pointer py-3 md:flex hidden flex-col gap-4"
                         >
                            <div className="flex items-start gap-2">
                               <div
@@ -456,10 +459,11 @@ const HomePageLayout = ({ children }) => {
                      mySpaceArchiveList &&
                      mySpaceArchiveList?.map((space, index) => (
                         <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
                            initial={{ opacity: 0, translateY: 50 }}
                            animate={{ opacity: 1, translateY: 0 }}
                            transition={{ delay: 0.1 }}
-                           className="pl-5 py-3 md:flex hidden flex-col gap-4"
+                           className="pl-5 py-3 cursor-pointer  md:flex hidden flex-col gap-4"
                         >
                            <div className="flex items-start gap-2">
                               <div

@@ -8,7 +8,7 @@ export default function Introduction() {
     const router = useRouter();
    return (
       <div>
-         <div className="flex flex-col-reverse lg:flex-row justify-evenly mt-12 mb-16 mx-auto w-fit">
+         <div className="flex flex-col-reverse lg:flex-row justify-evenly mt-14 mb-16 mx-auto w-fit">
             <div className="flex flex-col justify-center gap-4 lg:w-1/2">
                <div className="relative w-full px-10 flex items-center justify-center  overflow-hidden">
                   {/* <Image

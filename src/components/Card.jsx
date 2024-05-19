@@ -14,53 +14,53 @@ import { BACKEND_URL } from "../../config";
 import { Appcontext } from "@/context/AppContext";
 import { toast } from "sonner";
 
-const Card = ({ className, classBtn, classDescription,archived ,  ImagePath, ImageUser, classroom_id }) => {
+const Card = ({ className, classBtn, classDescription, archived, ImagePath, ImageUser, classroom_id }) => {
    const router = useRouter();
-   const [openSettings , setOpenSettings] = useState(false);
+   const [openSettings, setOpenSettings] = useState(false);
    const context = useContext(Appcontext);
-   const {fetchSpaceList}  = context;
-   const handleDelete =  async()=>{
-    try{
-        const res = await fetch(`${BACKEND_URL}/api/classrooms/delete_class?classId=${classroom_id}` , {
-            method : "DELETE",
+   const { fetchSpaceList } = context;
+   const handleDelete = async () => {
+      try {
+         const res = await fetch(`${BACKEND_URL}/api/classrooms/delete_class?classId=${classroom_id}`, {
+            method: "DELETE",
             headers: {
                "Content-Type": "application/json",
                Authorization: `Bearer ${context.sessionId}`,
             },
-        });
-        if(res.ok){
+         });
+         if (res.ok) {
             toast.success("Deleted successfully");
             fetchSpaceList();
             setOpenSettings(false);
-        }
-    }catch(er){
-        console.error(er);
-    }
+         }
+      } catch (er) {
+         console.error(er);
+      }
    }
 
    const handleToggleArchived = async () => {
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/classrooms/toggle_archived`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${context.sessionId}`,
-        },
-        body: JSON.stringify({ classId: classroom_id, archived:archived }),
-      });
-      if (res.ok) {
-        toast.success("Archived status updated successfully");
-        context.fetchSpaceList();
-        setOpenSettings(false);
+      try {
+         const res = await fetch(`${BACKEND_URL}/api/classrooms/toggle_archived`, {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${context.sessionId}`,
+            },
+            body: JSON.stringify({ classId: classroom_id, archived: archived }),
+         });
+         if (res.ok) {
+            toast.success("Archived status updated successfully");
+            context.fetchSpaceList();
+            setOpenSettings(false);
+         }
+      } catch (er) {
+         console.error(er);
       }
-    } catch (er) {
-      console.error(er);
-    }
-  };
+   };
 
 
    return (
-      <div className="border w-[380px] min-h-fit border-gray-300 rounded-md shadow-md">
+      <div className="border w-[380px] h-[460px] relative border-gray-300 rounded-md shadow-md">
          <div className="relative">
             <div className="absolute top-3 right-2">
                <DropdownMenu open={openSettings} onOpenChange={setOpenSettings}>
@@ -79,7 +79,7 @@ const Card = ({ className, classBtn, classDescription,archived ,  ImagePath, Ima
                      <DropdownMenuLabel>{className || "No name"}</DropdownMenuLabel>
                      <DropdownMenuSeparator />
                      <div className="text-xs flex flex-col gap-2 p-3 font_inter_custom">
-                        <div onClick={()=>{handleDelete()}} className="flex cursor-pointer items-center gap-2">
+                        <div onClick={() => { handleDelete() }} className="flex cursor-pointer items-center gap-2">
                            <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="20px"
@@ -91,7 +91,7 @@ const Card = ({ className, classBtn, classDescription,archived ,  ImagePath, Ima
                            </svg>
                            Delete Space
                         </div>
-                        <div onClick={()=>{handleToggleArchived()}} className="flex cursor-pointer items-center gap-2">
+                        <div onClick={() => { handleToggleArchived() }} className="flex cursor-pointer items-center gap-2">
                            <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="20px"
@@ -110,22 +110,26 @@ const Card = ({ className, classBtn, classDescription,archived ,  ImagePath, Ima
 
             <Image
                src={ImagePath}
-               width={300}
-               height={200}
+               unoptimized
+               quality={100}
+               width={100}
+               height={100}
                alt="Card Image"
-               className="w-full rounded-md h-64"
+               className="w-full rounded-md h-[260px]"
             />
             <Image
                src={ImageUser}
                width={100}
-               height={50}
+               height={100}
                alt="Card Image"
-               className="rounded-full absolute -bottom-8 right-5 md:-bottom-8 md:right-10"
+               className="rounded-full absolute -bottom-8 right-5 md:-bottom-8 w-20 h-20 md:right-4"
             />
          </div>
-         <div className="p-4">
+         <div className="p-4 relative">
             <div className="text-lg font-semibold mb-2">{className}</div>
             <div className="text-gray-700 mb-4">{classDescription}</div>
+         </div>
+         <div className="absolute bottom-2 p-4">
             <button
                className="bg-black flex items-center gap-2 text-white text-xs font_poppins_custom px-3 py-2 rounded-sm"
                onClick={() => {
