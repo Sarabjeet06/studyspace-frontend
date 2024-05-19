@@ -14,7 +14,6 @@ const index = () => {
 
    const context = useContext(Appcontext);
    const { mySpaceList, mySpaceStudyList} = context;
-   console.log(mySpaceList)
    return (
       <HomePageLayout>
          <div class="flex flex-wrap md:justify-between justify-center items-center md:p-16 p-6 gap-10">
