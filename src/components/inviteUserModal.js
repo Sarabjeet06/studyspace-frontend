@@ -1,15 +1,21 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
 import { BACKEND_URL } from "../../config";
 import { toast } from "sonner";
+import { useRouter } from "next/router";
+import { Appcontext } from "@/context/AppContext";
 
 const InviteUserModal = ({ open, setOpen }) => {
    const [email, setEmail] = useState("");
    const [file, setFile] = useState(null);
    const [loading, setLoading] = useState(false);
+   const [spaceId, setSpaceId] = useState("");
+   const router = useRouter();
+   const context = useContext(Appcontext);
+   const { id } = router.query;
 
    const handle_invite = async () => {
       try {
@@ -23,9 +29,16 @@ const InviteUserModal = ({ open, setOpen }) => {
             form_data.append("file", file);
          }
          form_data.append("email", email);
-         form_data.append("classroom_id", "4549201");
+         if (id) {
+            form_data.append("classroom_id", id);
+         } else {
+            form_data.append("classroom_id", spaceId);
+         }
          const res = await fetch(`${BACKEND_URL}/api/classrooms/email_invite`, {
             method: "POST",
+            headers: {
+               Authorization: `Bearer ${context.sessionId}`,
+            },
             body: form_data,
          });
          if (res.ok) {
@@ -52,16 +65,32 @@ const InviteUserModal = ({ open, setOpen }) => {
             <section>
                <div className="font-medium font_poppins_custom">Invite students</div>
 
-               <div className="my-2 font-medium">
-                  <div className="text-center font-bold text-3xl">4549201</div>
-                  <div className="text-center text-gray-400 text-xs">Copy the invite code</div>
+               <div className="my-2 font-medium ">
+                  {typeof id === "undefined" ? (
+                     <div className="w-full flex items-center justify-center mx-auto">
+                        <input
+                        value={spaceId}
+                           onChange={(e) => {
+                              setSpaceId(e.target.value);
+                           }}
+                           className="outline-none border rounded-md p-2 text-center "
+                        />
+                     </div>
+                  ) : (
+                     <div className="text-center font-bold text-3xl">{id}</div>
+                  )}
+
+                  {typeof id === "undefined" ? (
+                     <div className="text-center text-gray-400 text-xs">Enter the invite code</div>
+                  ) : (
+                     <div className="text-center text-gray-400 text-xs">Copy the invite code</div>
+                  )}
                </div>
                <div className="w-full bg-slate-400 h-[1px]"></div>
                <div className="mt-6 mb-3">
                   <input
                      value={email}
                      disabled={loading === true}
-
                      onChange={(e) => {
                         setEmail(e.target.value);
                      }}
@@ -74,7 +103,6 @@ const InviteUserModal = ({ open, setOpen }) => {
                   <input
                      type="file"
                      disabled={loading === true}
-
                      onChange={(e) => {
                         setFile(e.target.files[0]);
                      }}
@@ -143,7 +171,7 @@ const InviteUserModal = ({ open, setOpen }) => {
                )}
                <div className="flex  gap-2 mt-5  items-center justify-end">
                   <button
-                  disabled={loading === true}
+                     disabled={loading === true}
                      onClick={() => {
                         handle_invite();
                      }}

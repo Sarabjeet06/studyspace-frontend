@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
 import { BACKEND_URL } from "../../../config";
+import { Appcontext } from "@/context/AppContext";
 
 const index = () => {
       const router = useRouter();
+      const context = useContext(Appcontext);
       const handle_join = async ()=>{
             try{
                   const res = await fetch(`${BACKEND_URL}/api/classrooms/join_class`,{
                         method:"POST",
                         headers:{
-                              "Content-Type":"application/json"
-                        },
+                              "Content-Type":"application/json",
+                              Authorization: `Bearer ${context.sessionId}`,
+                           },
                         body:JSON.stringify({
                               classroom_id:router?.query?.space_id,
                               email:router?.query?.email
