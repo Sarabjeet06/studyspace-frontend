@@ -5,7 +5,9 @@ import Image from 'next/image'
 
 export default function Stream() {
 
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [open2 , setOpen2] = useState(false);
 
   const handleClick = () => {
     setIsVisible(!isVisible)
@@ -40,12 +42,48 @@ export default function Stream() {
                 {isVisible && <button className={`w-full h-full text-sm text-left text-gray-500 p-5`} onClick={handleClick}>Announce something to the class</button>}
 
                 {
-                  !isVisible && <div className='flex flex-col items-end py-1 gap-2'>
+                  !isVisible && <div className='flex flex-col items-end py-1 gap-3'>
                     <textarea className={`bg-gray-100 w-full h-full text-sm text-left text-black px-5 py-3 rounded outline-none`}  name="announcement" id="announcement">
                     </textarea>
-                    <div className='flex gap-3'>
-                      <button className='w-fit px-3 py-1 bg-blue-500 text-white hover:bg-blue-600 rounded'>Post</button>
-                      <button onClick={handleClick} className='w-fit px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded'>cancel</button>
+                    <div className='flex justify-between w-full'>
+                      <div className='flex gap-2 items-center *:w-10 *:h-10 *:border-[1px]'>
+                        <button className='bg-white hover:bg-gray-100 rounded-full'>
+                          <Image
+                            className='mx-auto my-auto'
+                            src='/images/drive-icon.png'
+                            width={24}
+                            height={24}
+                          />
+                        </button>
+                        <button className='bg-white hover:bg-gray-100 rounded-full'>
+                          <Image
+                            className='mx-auto my-auto'
+                            src='/images/youtube-icon.png'
+                            width={24}
+                            height={24}
+                          />
+                        </button>
+                        <button className='bg-white hover:bg-gray-100 rounded-full'>
+                          <Image
+                            className='mx-auto my-auto'
+                            src='/images/upload-icon.png'
+                            width={24}
+                            height={24}
+                          />
+                        </button>
+                        <button className='bg-white hover:bg-gray-100 rounded-full'>
+                          <Image
+                            className='mx-auto my-auto'
+                            src='/images/link-icon.png'
+                            width={24}
+                            height={24}
+                          />
+                        </button>
+                      </div>
+                      <div className='flex gap-3 py-2 *:px-4 *:py-1'>
+                        <button className='w-fit bg-blue-500 text-white hover:bg-blue-600 rounded'>Post</button>
+                        <button onClick={handleClick} className='w-fit bg-gray-100 hover:bg-gray-200 rounded'>cancel</button>
+                      </div>
                     </div>
                   </div>
                 }
@@ -75,7 +113,7 @@ export default function Stream() {
                 </div>
                 <div className='text-center'>Notes heading</div>
               </div> 
-              <div className='flex gap-4 w-full h-20 my-6 px-5 items-center border-[1.5px] border-gray-300 rounded-md bg-white hover:bg-gray-100 cursor-pointer'>
+              <div className='flex gap-4 w-full h-fit min-h-20 my-6 px-5 items-center border-[1.5px] border-gray-300 rounded-md bg-white hover:bg-gray-100 cursor-pointer'>
                 <div className='relative w-12 h-12 rounded-full bg-blue-500'>
                   <Image
                     className='absolute top-0 bottom-0 left-0 right-0 mx-auto my-auto'
