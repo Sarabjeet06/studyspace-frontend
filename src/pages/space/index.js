@@ -1,6 +1,7 @@
 /** @format */
 
 import Card from "@/components/Card";
+import CardsSkeleton from "@/components/CardsSkeleton";
 import HomePageLayout from "@/components/HomePageLayout";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
@@ -26,6 +27,7 @@ const index = () => {
                      classDescription={classroom?.classroom_section}
                      ImagePath={classroom?.classroom_background_url}
                      ImageUser={classroom?.created_by?.profile_url}
+                     archived={classroom?.archived}
                   />
                ))}
             {mySpaceStudyList &&
@@ -37,6 +39,7 @@ const index = () => {
                      classDescription={classroom?.classroom_section}
                      ImagePath={classroom?.classroom_background_url}
                      ImageUser={classroom?.created_by?.profile_url}
+                     archived={classroom?.archived}
                   />
                ))}
          </div>

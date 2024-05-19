@@ -88,6 +88,7 @@ const AppState = ({ children }) => {
             setMySpaceList,
             setMySpaceStudyList,
             spaceList,
+            fetchSpaceList,
             mySpaceArchiveList,
             mySpaceList,
             mySpaceStudyList,

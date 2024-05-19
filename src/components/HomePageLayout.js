@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import JoinClassModal from "./joinClassModal";
 import InviteUserModal from "./inviteUserModal";
 import { Appcontext } from "@/context/AppContext";
+import { useRouter } from "next/router";
 
 const HomePageLayout = ({ children }) => {
    const [menuClicked, setMenuClicked] = useState(false);
@@ -17,11 +18,19 @@ const HomePageLayout = ({ children }) => {
    const [openJoinModal, setOpenJoinModal] = useState(false);
    const [openCreateModal, setOpenCreateModal] = useState(false);
    const pathname = usePathname();
+   const router = useRouter();
    const context = useContext(Appcontext);
-   const { userDetails } = context;
+   const predefinedColors = ["#139A98", "#C3804A", "#17A34A", "#DC2625"];
+
+   const getRandomColor = () => {
+      const randomIndex = Math.floor(Math.random() * predefinedColors.length);
+      return predefinedColors[randomIndex];
+   };
+   const { userDetails, mySpaceArchiveList, mySpaceStudyList, mySpaceList } = context;
+
    return (
       <div className="w-full relative h-screen">
-         <div className="z-[200] fixed md:relative w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-3 ">
+         <div className="z-[50] fixed md:relative w-full flex justify-between border border-b-2 border-gray-200 bg-white px-3 py-3 ">
             <div className="flex   gap-2">
                <div
                   className="hover:cursor-pointer hover:bg-gray-200 p-2  hover:rounded-full"
@@ -97,6 +106,25 @@ const HomePageLayout = ({ children }) => {
                                  fill="#5f6368"
                               >
                                  <path d="M500-482q29-32 44.5-73t15.5-85q0-44-15.5-85T500-798q60 8 100 53t40 105q0 60-40 105t-100 53Zm220 322v-120q0-36-16-68.5T662-406q51 18 94.5 46.5T800-280v120h-80Zm80-280v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Zm-480-40q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM0-160v-112q0-34 17.5-62.5T64-378q62-31 126-46.5T320-440q66 0 130 15.5T576-378q29 15 46.5 43.5T640-272v112H0Zm320-400q33 0 56.5-23.5T400-640q0-33-23.5-56.5T320-720q-33 0-56.5 23.5T240-640q0 33 23.5 56.5T320-560ZM80-240h480v-32q0-11-5.5-20T540-306q-54-27-109-40.5T320-360q-56 0-111 13.5T100-306q-9 5-14.5 14T80-272v32Zm240-400Zm0 400Z" />
+                              </svg>
+                           </span>
+                           Invite class
+                        </div>
+                        <div
+                           onClick={() => {
+                              router.push("/create-class");
+                           }}
+                           className="flex cursor-pointer my-2 items-center gap-2"
+                        >
+                           <span>
+                              <svg
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 height="19px"
+                                 viewBox="0 -960 960 960"
+                                 width="19px"
+                                 fill="#5f6368"
+                              >
+                                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240v80H200v560h560v-240h80v240q0 33-23.5 56.5T760-120H200Zm440-400v-120H520v-80h120v-120h80v120h120v80H720v120h-80Z" />
                               </svg>
                            </span>
                            Create class
@@ -249,51 +277,34 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand1 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="md:pl-5 pl-2 py-3 md:flex hidden flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand1 &&
+                     menuClicked &&
+                     mySpaceList &&
+                     mySpaceList?.map((space, index) => {
+                        if(space?.archived === false)return (
+                        <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 py-3 cursor-pointer md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div
+                                 style={{ background: getRandomColor() }}
+                                 className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                              >
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                    {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     )})}
                </div>
 
                <div className="w-full">
@@ -354,51 +365,35 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand2 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="pl-5 py-3 md:flex hidden flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand2 &&
+                     menuClicked &&
+                     mySpaceStudyList &&
+                     mySpaceStudyList?.map((space, index) => {
+                        if(space?.archived === false) return (
+                        <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
+
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 cursor-pointer py-3 md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div
+                                 style={{ background: getRandomColor() }}
+                                 className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                              >
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                    {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     )})}
                </div>
 
                <div className="w-full">
@@ -459,51 +454,33 @@ const HomePageLayout = ({ children }) => {
                   </div>
 
                   {/* class list */}
-                  {expand3 && menuClicked && (
-                     <motion.div
-                        initial={{ opacity: 0, translateY: 50 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="pl-5  hidden py-3 md:flex flex-col gap-4"
-                     >
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              S
+                  {expand3 &&
+                     menuClicked &&
+                     mySpaceArchiveList &&
+                     mySpaceArchiveList?.map((space, index) => (
+                        <motion.div
+                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
+                           initial={{ opacity: 0, translateY: 50 }}
+                           animate={{ opacity: 1, translateY: 0 }}
+                           transition={{ delay: 0.1 }}
+                           className="pl-5 py-3 cursor-pointer  md:flex hidden flex-col gap-4"
+                        >
+                           <div className="flex items-start gap-2">
+                              <div
+                                 style={{ background: getRandomColor() }}
+                                 className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                              >
+                                 {space?.classroom_name[0]}
+                              </div>
+                              <div className="text-xs md:block hidden">
+                                 <div>{space?.classroom_name}</div>
+                                 <div className="font_inter_custom text-gray-500">
+                                    {space?.classroom_section}
+                                 </div>
+                              </div>
                            </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-red-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              T
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-yellow-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              I
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                           <div className="w-8 h-8 bg-green-600 text-white rounded-full p-2 text-sm flex items-center justify-center">
-                              Z
-                           </div>
-                           <div className="text-xs md:block hidden">
-                              <div>StudySpace</div>
-                              <div className="font_inter_custom text-gray-500">Web developers</div>
-                           </div>
-                        </div>
-                     </motion.div>
-                  )}
+                        </motion.div>
+                     ))}
                </div>
             </div>
 

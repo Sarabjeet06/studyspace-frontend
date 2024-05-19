@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "sonner";
 import { BACKEND_URL } from "../../../config";
 import { useRouter } from "next/navigation";
+import { Appcontext } from "@/context/AppContext";
 
 
 const index = () => {
@@ -11,7 +12,8 @@ const index = () => {
    const [spaceSection, setSpaceSection] = useState("");
    const [loading, setLoading] = useState(false);
    const router = useRouter();
-
+   const context = useContext(Appcontext);
+   const {fetchSpaceList , userDetails} = context;
    
 
    const handle_submit = async () => {
@@ -25,16 +27,17 @@ const index = () => {
          form_data.append("file", imageFile);
          form_data.append("name", spaceName);
          form_data.append("section", spaceSection);
-         form_data.append("user_id", "5086318");
+         form_data.append("user_id", userDetails?.user_id);
          const res = await fetch(`${BACKEND_URL}/api/classrooms/create_class`, {
             method: "POST",
             headers: {
-               // "content-type": "application/json",
+               Authorization: `Bearer ${context.sessionId}`,
             },
             body: form_data,
          });
          if (res.ok) {
             const data = await res.json();
+            fetchSpaceList();
             router.push('/space');
          }
       } catch (err) {
