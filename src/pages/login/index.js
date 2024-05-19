@@ -61,8 +61,8 @@ const loginPage = () => {
             const data = await res.json();
             if (res.ok) {
                 console.log("user login ho gaya");
-                console.log(data);
                 toast.success("Login Successfull");
+                localStorage.setItem("spaceToken"  , data?.data?.hashToken )
                 if(space_id){
                     router.push(`/join-class?space_id=${space_id}&&email=${userDetails?.email}`);
                 }else{
@@ -122,7 +122,11 @@ const loginPage = () => {
                             <button className={`w-full px-3 py-2 border border-gray-800 rounded-md ${isLoading1?'animate-pulse bg-gray-400': ''} `} onClick={() => { signInWithGoogle() }}>Login with Google</button>
                             <div className='flex justify-center text-sm'>
                                 Are you new?
-                                <Link href='/signup' className=' ml-1 underline text-green-500 hover:text-green-400'>Create an account</Link>
+                                <div onClick={()=>{if(space_id){
+          router.push(`/signup?space_id=${space_id}&&email=${userDetails?.email}`);
+        }else{
+            router.push("/signup");
+        }}} className=' ml-1 underline text-green-500 hover:text-green-400'>Create an account</div>
                             </div>
                         </div>
 

@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import Image from 'next/image'
+import { Appcontext } from '@/context/AppContext'
+import { useRouter } from 'next/router';
 
 
 
 export default function Stream() {
 
-  const [isVisible, setIsVisible] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [open2 , setOpen2] = useState(false);
-
+  const [isVisible, setIsVisible] = useState(true)
+  const context = useContext(Appcontext);
+  const router = useRouter();
+  const {id} = router.query;
+  const {spaceList} = context;
   const handleClick = () => {
     setIsVisible(!isVisible)
   }
+  const CurrSpace = useMemo(() => {
+    return spaceList?.classrooms?.find(space => space?.classroom_id === id) ||
+           spaceList?.joined_classrooms?.find(space => space?.classroom_id === id);
+  }, [id, spaceList]);
+
+  console.log(CurrSpace);
 
   return (
     <div className=''>
@@ -20,15 +29,15 @@ export default function Stream() {
           <Image 
           unoptimized
           quality={100}
-          src={"https://res.cloudinary.com/dqpirrbuh/image/upload/v1714684229/zy4i_hjsz_210617_qqbclc.jpg"}
+          src={CurrSpace?.classroom_background_url ||  "https://res.cloudinary.com/dqpirrbuh/image/upload/v1714684229/zy4i_hjsz_210617_qqbclc.jpg"}
             className='object-cover h-full w-full rounded-xl'
             width={100}
             height={100}> 
           </Image>
           <div className='absolute top-0 left-0 w-full rounded-lg h-full bg-gradient-to-t from-black/30 to-white/10'></div>
           <div className='absolute bottom-5 left-6'>
-            <div className='text-white text-4xl font-bold'>StudySpace</div>
-            <div className='text-white text-lg'>Web-Development Course</div>
+            <div className='text-white text-4xl font-bold'>{CurrSpace?.classroom_name || "No name"}</div>
+            <div className='text-white text-lg'>{CurrSpace?.classroom_section || "No name"}</div>
           </div>
         </div>
         <div className='flex lg:flex-row flex-col gap-8 mt-8'>

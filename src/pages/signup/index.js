@@ -127,7 +127,11 @@ const signup = () => {
               <button onClick={signInWithGoogle} className={`w-full px-3 py-2 border border-gray-800 rounded-md  ${isLoading1?'animate-pulse bg-gray-400': ''}`}>Sign up with Google</button>
               <div className='flex justify-center text-sm'>
                 Already have an account?
-                <Link href='/login' className=' ml-1 underline text-green-500 hover:text-green-400'>Login to your account</Link>
+                <div onClick={()=>{if(space_id){
+          router.push(`/login?space_id=${space_id}&&email=${userDetails?.email}`);
+        }else{
+            router.push("/login");
+        }}} className=' ml-1 underline text-green-500 hover:text-green-400'>Login to your account</div>
               </div>
             </div>
           </div>
