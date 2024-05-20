@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BACKEND_URL } from "../../config";
 import {
    Dialog,
@@ -13,15 +13,20 @@ import {
 import { Textarea } from "./ui/textarea";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Image from "next/image";
+import { Appcontext } from "@/context/AppContext";
 
 const Assignment = ({ assignment  , fetchAssignments }) => {
    const [date, setDate] = useState("");
    const [assignmentName, setAssignmentName] = useState("");
+   const context = useContext(Appcontext);
 
    const handleDelete = async (id) => {
       try {
          const res = await fetch(`${BACKEND_URL}/api/assignments/deleteAssignment/${id}`, {
             method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${context.sessionId}`,
+             },
          });
          if (res.ok) {
             console.log("Delete kardia bhai");
@@ -42,8 +47,9 @@ const Assignment = ({ assignment  , fetchAssignments }) => {
          const res = await fetch(`${BACKEND_URL}/api/assignments/updateAssignment/${id}`, {
             method: "PUT",
             headers: {
-               "Content-Type": "application/json",
-            },
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${context.sessionId}`,
+             },
             body: JSON.stringify(updatedAssignment),
          });
          if (res.ok) {

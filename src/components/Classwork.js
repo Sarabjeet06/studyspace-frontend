@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -14,6 +14,7 @@ import Assignment from './Assignment';
 import Quizes from './Quizes';
 import { toast } from 'sonner';
 import { useRouter } from 'next/router';
+import { Appcontext } from '@/context/AppContext';
 
 const Classwork = () => {
     const [assignmentName, setAssignmentName] = useState("");
@@ -29,17 +30,22 @@ const Classwork = () => {
     const [allAssignments, setAllAssignments] = useState([]);
     const [allQuizes , setAllQuizes] = useState([]);
     const router = useRouter();
+    const context = useContext(Appcontext);
+    const {setClassroomAssignmentList} = context;
     const {id} = router.query;
 
     const fetchAssignments = async () => {
         try {
             const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment?classroom_id=${id}`, {
                 method: "GET",
+                headers: {
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
             });
             if (res.ok) {
                 const response = await res.json();
-                console.log(response);
                 setAllAssignments(response);
+                setClassroomAssignmentList(response);
             }
         } catch (error) {
             console.log(error);
@@ -50,6 +56,9 @@ const Classwork = () => {
         try{
             const res=await fetch(`${BACKEND_URL}/api/quizes/getQuiz`,{
                 method: "GET",
+                headers: {
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
             });
             if(res.ok){
                 const response = await res.json();
@@ -78,8 +87,9 @@ const Classwork = () => {
             const res = await fetch(`${BACKEND_URL}/api/assignments/add_assignment`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json",
-                },
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
                 body: JSON.stringify(assignmentDetails),
             });
             const data = await res.json();
@@ -108,8 +118,9 @@ const Classwork = () => {
             const res = await fetch(`${BACKEND_URL}/api/quizes/add_quiz`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json",
-                },
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
                 body: JSON.stringify(quizDetails),
             });
             const data = await res.json();

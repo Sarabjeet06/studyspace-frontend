@@ -3,8 +3,7 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-const UploadLinkModal = ({ open, setOpen }) => {
-   const [link, setLink] = useState('');
+const UploadLinkModal = ({ open, setOpen , setLink , link }) => {
 
 
    return (
@@ -19,8 +18,8 @@ const UploadLinkModal = ({ open, setOpen }) => {
 
                <div className="my-4 w-full flex items-center justify-center flex-col border-2 border-blue-500  relative  rounded-lg">
                   <input
-                     value={link}
                      type="url"
+                     value={link}
                      placeholder="Enter link url"
                      onChange={(e) => {
                         setLink(e.target.value);
@@ -30,7 +29,7 @@ const UploadLinkModal = ({ open, setOpen }) => {
                   />
                </div>
                <div className="flex flex-row-reverse">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">Enter</button>
+                  <button onClick={()=>{setOpen(false)}} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">Enter</button>
                </div>
                
             </section>
