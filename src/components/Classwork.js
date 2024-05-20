@@ -32,6 +32,7 @@ const Classwork = ({ role }) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [isTeacher, setIsTeacher] = useState(false);
+    const [isAssignmentClicked , setIsAssignmentClicked ] = useState(false);
     const router = useRouter();
     const context = useContext(Appcontext);
     const { setClassroomAssignmentList } = context;
@@ -49,6 +50,7 @@ const Classwork = ({ role }) => {
 
     const fetchAssignments = async () => {
         try {
+            setIsAssignmentClicked(true);
             const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment?classroom_id=${id}`, {
                 method: "GET",
                 headers: {
@@ -62,6 +64,8 @@ const Classwork = ({ role }) => {
             }
         } catch (error) {
             console.log(error);
+        }finally{
+            setIsAssignmentClicked(false);
         }
     }
 
@@ -215,7 +219,7 @@ const Classwork = ({ role }) => {
                                                             />
                                                         </div>
                                                         <div className='flex justify-end mt-5'>
-                                                            <button onClick={() => handleAssignment()} className='px-2 py-1 bg-gray-900 hover:bg-gray-800 text-white rounded-md'>Create Assignment</button>
+                                                            <button onClick={() => handleAssignment()} className={`${isAssignmentClicked?'animate-pulse text-gray-700':''} px-2 py-1 bg-gray-900 hover:bg-gray-800 text-white rounded-md`}>Create Assignment</button>
                                                         </div>
                                                     </div>
                                                 </TabsContent>
@@ -259,7 +263,7 @@ const Classwork = ({ role }) => {
 
                 <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allQuizes && allQuizes.map((quiz) => {
-                    return <Quizes teacher={isTeacher} quiz={quiz} />
+                    return <Quizes teacher={isTeacher} quiz={quiz} fetchQuiz={fetchQuiz} />
                 })}
 
             </div>

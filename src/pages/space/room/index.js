@@ -88,6 +88,7 @@ const index = () => {
    useEffect(()=>{
       if(typeof id !== "undefined" && userDetails)
       handle_role();
+      setActiveTab(tabs[0].id);
    },[id]);
    return (
       <HomePageLayout>
