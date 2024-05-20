@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { BACKEND_URL } from "../../config";
 import DeleteAnouncemodal from "./deleteAnouncemodal";
 
-export default function Stream() {
+export default function Stream({ role }) {
    const [isVisible, setIsVisible] = useState(true);
    const [openUploadLinkModal, setOpenUploadLinkModal] = useState(false);
    const [openUpdateAnnouncementModal, setOpenUpdateAnnouncementModal] = useState(false);
@@ -24,11 +24,21 @@ export default function Stream() {
 
    const [heading, setHeading] = useState("");
    const [link, setLink] = useState("");
+   const [isTeacher, setIsTeacher] = useState(false);
    const { id } = router.query;
    const { spaceList } = context;
    const handleClick = () => {
       setIsVisible(!isVisible);
    };
+
+   useEffect(() => {
+      if (role === 'teacher') {
+         setIsTeacher(true);
+      }
+      else {
+         setIsTeacher(false);
+      }
+   }, [role]);
 
    const fetchAssignments = async () => {
       try {
@@ -145,9 +155,8 @@ export default function Stream() {
                </div>
                <div className="w-full py-3">
                   <div
-                     className={`w-full h-fit ${
-                        !isVisible && "py-5"
-                     } px-5 rounded-lg border-b-[1px] shadow-[0px_3px_6px_2px_rgba(0,0,0,0.15)] bg-white`}
+                     className={`w-full h-fit ${!isVisible && "py-5"
+                        } px-5 rounded-lg border-b-[1px] shadow-[0px_3px_6px_2px_rgba(0,0,0,0.15)] bg-white`}
                   >
                      {isVisible && (
                         <button
@@ -342,40 +351,42 @@ export default function Stream() {
                                  link
                               </span>{" "}
                               <div className="absolute top-2 right-4">
-                                 <Popover>
-                                    <PopoverTrigger>
-                                       <div className="relative w-12 h-12 rounded-full hover:bg-gray-200">
-                                          <Image
-                                             className="absolute top-0 bottom-0 left-0 right-0 mx-auto my-auto"
-                                             src="/images/menu-3-dot-icon.png"
-                                             width={30}
-                                             height={30}
-                                          />
-                                       </div>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-full px-4 py-1">
-                                       <div className="text-sm">
-                                          <div
-                                             onClick={() => {
-                                                setSelectedAnouncement(anouncement?._id);
-                                                setOpenUpdateAnnouncementModal(true);
-                                             }}
-                                             className="cursor-pointer my-2 items-center"
-                                          >
-                                             Edit
+                                 {
+                                    isTeacher && <Popover>
+                                       <PopoverTrigger>
+                                          <div className="relative w-12 h-12 rounded-full hover:bg-gray-200">
+                                             <Image
+                                                className="absolute top-0 bottom-0 left-0 right-0 mx-auto my-auto"
+                                                src="/images/menu-3-dot-icon.png"
+                                                width={30}
+                                                height={30}
+                                             />
                                           </div>
-                                          <div
-                                             onClick={() => {
-                                                setSelectedAnouncement(anouncement?._id);
-                                                setOpenDeleteAnounceModal(true);
-                                             }}
-                                             className="cursor-pointer my-2 items-center"
-                                          >
-                                             Delete
+                                       </PopoverTrigger>
+                                       <PopoverContent className="w-full px-4 py-1">
+                                          <div className="text-sm">
+                                             <div
+                                                onClick={() => {
+                                                   setSelectedAnouncement(anouncement?._id);
+                                                   setOpenUpdateAnnouncementModal(true);
+                                                }}
+                                                className="cursor-pointer my-2 items-center"
+                                             >
+                                                Edit
+                                             </div>
+                                             <div
+                                                onClick={() => {
+                                                   setSelectedAnouncement(anouncement?._id);
+                                                   setOpenDeleteAnounceModal(true);
+                                                }}
+                                                className="cursor-pointer my-2 items-center"
+                                             >
+                                                Delete
+                                             </div>
                                           </div>
-                                       </div>
-                                    </PopoverContent>
-                                 </Popover>
+                                       </PopoverContent>
+                                    </Popover>
+                                 }
                               </div>
                            </div>
                         ))}

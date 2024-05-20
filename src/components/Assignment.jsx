@@ -17,12 +17,14 @@ import Assignmentsubmission from './Assignmentsubmission';
 import { toast } from "sonner";
 import { Appcontext } from "@/context/AppContext";
 
-const Assignment = ({ assignment, fetchAssignments }) => {
+const Assignment = ({ teacher, assignment, fetchAssignments }) => {
     const [date, setDate] = useState("");
     const [assignmentName, setAssignmentName] = useState("");
     const context = useContext(Appcontext);
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
+    // const [isTeacher, setIsTeacher] = useState(false);
+
 
     const handleDelete = async (id) => {
         try {
@@ -131,89 +133,92 @@ const Assignment = ({ assignment, fetchAssignments }) => {
                             </div>
                         </div>
                     </div>
-                    <Assignmentsubmission />
+                    
                     <div>
-                        <Popover>
-                            <PopoverTrigger>
-                                <div className="w-8 p-1 hover:bg-blue-100 rounded-full">
-                                    <Image
-                                        unoptimized
-                                        className="w-6 h-6 mx-auto my-auto"
-                                        src="/images/menu-3-dot-icon.png"
-                                        width={100}
-                                        height={100}
-                                    />
-                                </div>
-                            </PopoverTrigger>
+                        {teacher ? <></> : <Assignmentsubmission/>}
+                        {
+                            teacher && <Popover>
+                                <PopoverTrigger>
+                                    <div className="w-8 p-1 hover:bg-blue-100 rounded-full">
+                                        <Image
+                                            unoptimized
+                                            className="w-6 h-6 mx-auto my-auto"
+                                            src="/images/menu-3-dot-icon.png"
+                                            width={100}
+                                            height={100}
+                                        />
+                                    </div>
+                                </PopoverTrigger>
 
-                            <PopoverContent className="w-fit py-2">
-                                <div className="flex flex-col gap-1 w-fit">
-                                    <Dialog open={open2} onOpenChange={setOpen2} >
-                                        <DialogTrigger className="bg-white hover:bg-gray-100  mr-2 py-1 px-3 rounded-md text-sm mb-1 md:mb-0 w-14">
-                                            Edit
-                                        </DialogTrigger>
-                                        <DialogContent>
-                                            <DialogHeader>
-                                                <DialogTitle>Update Assignment</DialogTitle>
-                                                <DialogDescription>
-                                                    <div className="text-black">
-                                                        <div className=" font-serif mb-2 ">
-                                                            Add a topic for assignment
+                                <PopoverContent className="w-fit py-2">
+                                    <div className="flex flex-col gap-1 w-fit">
+                                        <Dialog open={open2} onOpenChange={setOpen2} >
+                                            <DialogTrigger className="bg-white hover:bg-gray-100  mr-2 py-1 px-3 rounded-md text-sm mb-1 md:mb-0 w-14">
+                                                Edit
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle>Update Assignment</DialogTitle>
+                                                    <DialogDescription>
+                                                        <div className="text-black">
+                                                            <div className=" font-serif mb-2 ">
+                                                                Add a topic for assignment
+                                                            </div>
+                                                            <Textarea
+                                                                placeholder="Enter a topic here"
+                                                                onChange={(e) => {
+                                                                    setAssignmentName(e.target.value);
+                                                                }}
+                                                            />
+                                                            <div className="my-2">Last date of submission</div>
+                                                            <input
+                                                                type="date"
+                                                                value={date}
+                                                                onChange={(e) => {
+                                                                    setDate(e.target.value);
+                                                                }}
+                                                                className="border border-1 border-gray-200 focus:border-black   rounded-sm p-2 focus:outline-none focus:ring-0 hover:cursor-pointer"
+                                                            />
                                                         </div>
-                                                        <Textarea
-                                                            placeholder="Enter a topic here"
-                                                            onChange={(e) => {
-                                                                setAssignmentName(e.target.value);
-                                                            }}
-                                                        />
-                                                        <div className="my-2">Last date of submission</div>
-                                                        <input
-                                                            type="date"
-                                                            value={date}
-                                                            onChange={(e) => {
-                                                                setDate(e.target.value);
-                                                            }}
-                                                            className="border border-1 border-gray-200 focus:border-black   rounded-sm p-2 focus:outline-none focus:ring-0 hover:cursor-pointer"
-                                                        />
-                                                    </div>
-                                                    <div className="flex justify-end mt-5">
-                                                        <button
-                                                            onClick={() => handleEdit(assignment?._id)}
-                                                            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
-                                                        >
-                                                            Apply Changes
-                                                        </button>
+                                                        <div className="flex justify-end mt-5">
+                                                            <button
+                                                                onClick={() => handleEdit(assignment?._id)}
+                                                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+                                                            >
+                                                                Apply Changes
+                                                            </button>
+                                                        </div>
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                            </DialogContent>
+                                        </Dialog>
+
+                                        <Dialog open={open1} onOpenChange={setOpen1}>
+                                            <DialogTrigger className="hover:bg-gray-100 py-1 px-3 w-14 rounded-md text-sm">
+                                                Delete
+                                            </DialogTrigger>
+
+                                            <DialogContent>
+                                                <DialogDescription>
+                                                    <div className="text-center text-lg p-4 *:my-4">
+                                                        <div>Are you sure you want to delete this assignment?</div>
+                                                        <div className="flex justify-center gap-4">
+                                                            {/* <button className='py-2 px-6 bg-[#b9bbc7] hover:bg-[#9da0b2] rounded-md text-white text-sm'>Cancel</button> */}
+                                                            <button
+                                                                onClick={() => handleDelete(assignment?._id)}
+                                                                className="bg-[#ed5e68] hover:bg-[#e9434f] py-2 px-6 border-[#ed5e68] rounded-md text-white text-sm"
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </DialogDescription>
-                                            </DialogHeader>
-                                        </DialogContent>
-                                    </Dialog>
-
-                                    <Dialog open={open1} onOpenChange={setOpen1}>
-                                        <DialogTrigger className="hover:bg-gray-100 py-1 px-3 w-14 rounded-md text-sm">
-                                            Delete
-                                        </DialogTrigger>
-
-                                        <DialogContent>
-                                            <DialogDescription>
-                                                <div className="text-center text-lg p-4 *:my-4">
-                                                    <div>Are you sure you want to delete this assignment?</div>
-                                                    <div className="flex justify-center gap-4">
-                                                        {/* <button className='py-2 px-6 bg-[#b9bbc7] hover:bg-[#9da0b2] rounded-md text-white text-sm'>Cancel</button> */}
-                                                        <button
-                                                            onClick={() => handleDelete(assignment?._id)}
-                                                            className="bg-[#ed5e68] hover:bg-[#e9434f] py-2 px-6 border-[#ed5e68] rounded-md text-white text-sm"
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </DialogDescription>
-                                        </DialogContent>
-                                    </Dialog>
-                                </div>
-                            </PopoverContent>
-                        </Popover>
+                                            </DialogContent>
+                                        </Dialog>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                        }
                     </div>
                 </div>
             </div>
