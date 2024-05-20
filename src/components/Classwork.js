@@ -12,9 +12,14 @@ import { Textarea } from './ui/textarea';
 import { BACKEND_URL } from '../../config';
 import Assignment from './Assignment';
 import Quizes from './Quizes';
+import { toast } from 'sonner';
+import { useRouter } from 'next/router';
 
 const Classwork = () => {
     const [assignmentName, setAssignmentName] = useState("");
+    const [assignmentDesc , setAssignmentDesc]= useState("");
+    const [assignmentPoint , setAssignmentPoint] = useState(0);
+    const [assignmentUrl , setAssignmentUrl] = useState("");
     const [quizQuestion, setQuizQuestion] = useState("");
     const [option1, setOption1] = useState("");
     const [option2, setOption2] = useState("");
@@ -23,10 +28,12 @@ const Classwork = () => {
     const [date, setDate] = useState("");
     const [allAssignments, setAllAssignments] = useState([]);
     const [allQuizes , setAllQuizes] = useState([]);
+    const router = useRouter();
+    const {id} = router.query;
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment`, {
+            const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment?classroom_id=${id}`, {
                 method: "GET",
             });
             if (res.ok) {
@@ -46,7 +53,6 @@ const Classwork = () => {
             });
             if(res.ok){
                 const response = await res.json();
-                // console.log(response);
                 setAllQuizes(response);
             }
         }catch(error){
@@ -57,14 +63,17 @@ const Classwork = () => {
     useEffect(() => {
         fetchAssignments();
         fetchQuiz();
-    }, []);
+    }, [id]);
     
-    console.log(allQuizes);
     const handleAssignment = async () => {
         try {
             const assignmentDetails = {
                 assignment_name: assignmentName,
                 assignment_date: date,
+                assignment_desc: assignmentDesc,
+                assignment_point: assignmentPoint,
+                assignment_url: assignmentUrl,
+                classroom_id : id,
             }
             const res = await fetch(`${BACKEND_URL}/api/assignments/add_assignment`, {
                 method: "POST",
@@ -75,13 +84,15 @@ const Classwork = () => {
             });
             const data = await res.json();
             if (res.ok) {
-                console.log("assignment ban gaya bhai");
+                toast.success("Assignment added successfully");
+                await fetchAssignments();
             }
             else {
-                console.log("ok nhi hai bhai");
+                toast.error("Couldn't add assignment");
             }
         } catch (error) {
-            console.log(error);
+            toast.error("Couldn't add assignment");
+            console.error(error);
         }
     }
 
@@ -148,10 +159,12 @@ const Classwork = () => {
                                                     <div className=' font-serif mb-2 '>Add a heading for assignment</div>
                                                     <div>
                                                         <Textarea placeholder="Enter a topic here" onChange={(e) => { setAssignmentName(e.target.value) }} />
-                                                        <div className=' font-serif mb-2 '>Add a description for assignment</div>
-                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentName(e.target.value) }} />
-                                                        <div className=' font-serif mb-2 '>Add a description for assignment</div>
-                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentName(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>Add a description for assignment</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentDesc(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>Total point</div>
+                                                        <input type='number' max={100} placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentPoint(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>If any url or link related to question</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentUrl(e.target.value) }} />
                                                         <div className='my-2'>Last date of submission</div>
                                                         <input
                                                             type="date"
@@ -198,7 +211,7 @@ const Classwork = () => {
                 <div className=' text-xl ml-2'>Assignments</div>
                 <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allAssignments && allAssignments.map((assignment) => {
-                    return <Assignment assignment={assignment} />
+                    return <Assignment assignment={assignment} fetchAssignments={fetchAssignments} />
                 })}
                 <div className=' text-xl ml-2'>Quiz</div>
 
