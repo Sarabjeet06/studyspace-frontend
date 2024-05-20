@@ -56,12 +56,24 @@ const Assignment = ({ assignment }) => {
         <div>
             <div className='mx-2 mb-3'>
                 <div className='flex justify-between items-center border rounded-md border-gray-200 py-2 pl-5 pr-4 hover:bg-blue-50'>
-                    <div className='flex flex-col gap-2'>
-                        <div className='pt-1'>{assignment?.assignment_name}</div>
-                        <div className='flex gap-2'>
-                            <div className='text-sm text-gray-600'>Due Date</div>
-                            <div className='text-sm text-gray-700'>{new Date(assignment?.assignment_date).toLocaleString()}</div>
+                    <div className='flex items-center gap-2'>
+                        <div className='w-fit h-fit p-2 bg-gray-400 rounded-full'>
+                            <Image
+                                unoptimized
+                                className='w-6 h-6'
+                                width={100}
+                                height={100}
+                                src='/images/assignment-icon.png'
+                            />
                         </div>
+                        <div className='flex flex-col gap-2'>
+                            <div className='pt-1'>{assignment?.assignment_name}</div>
+                            <div className='flex gap-2'>
+                                <div className='text-sm text-gray-600'>Due Date</div>
+                                <div className='text-sm text-gray-700'>{new Date(assignment?.assignment_date).toLocaleString()}</div>
+                            </div>
+                        </div>
+
                     </div>
                     <div>
                         <Popover>
