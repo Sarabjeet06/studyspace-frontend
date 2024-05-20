@@ -57,6 +57,10 @@ const Quizes = ({ quiz }) => {
         }
     }
 
+    const handleSubmission = async (id) => {
+
+    }
+
     return (
         <div>
             <div className='mx-2 mb-3 shadow-md'>
@@ -107,6 +111,19 @@ const Quizes = ({ quiz }) => {
                                         <div className='flex flex-wrap justify-end mt-5'>
                                             <button onClick={() => handleEdit(quiz._id)} className='px-2 py-1 bg-gray-900 hover:bg-gray-800 text-white rounded-md'>Apply changes</button>
                                         </div>
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog>
+                            <DialogTrigger  className='bg-gradient-to-r text-white from-gray-600 to-gray-700 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-800 text-sm p-2 rounded-sm'>Open</DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                    <DialogDescription>
+                                        This action cannot be undone. This will permanently delete your account
+                                        and remove your data from our servers.
+                                        <button onClick={() => handleSubmission(quizz_id)}>Submit Answer</button>
                                     </DialogDescription>
                                 </DialogHeader>
                             </DialogContent>
