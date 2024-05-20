@@ -61,7 +61,6 @@ const Classwork = () => {
     
     console.log(allQuizes);
     const handleAssignment = async () => {
-        // console.log(date);
         try {
             const assignmentDetails = {
                 assignment_name: assignmentName,
@@ -128,7 +127,6 @@ const Classwork = () => {
                     <div className='py-2 px-1 border-b-2 border-gray-100'>Do all the class work by today itself</div>
                 </div> */}
                 <div className='flex justify-end'>
-
                     <Dialog>
                         <DialogTrigger className='bg-blue-500 text-white px-3 py-2 text-sm rounded-md mr-2'>
                             Create
@@ -147,9 +145,13 @@ const Classwork = () => {
                                             </TabsList>
                                             <TabsContent value="assignment">
                                                 <div className='ml-2'>
-                                                    <div className=' font-serif mb-2 '>Add a topic for assignment</div>
+                                                    <div className=' font-serif mb-2 '>Add a heading for assignment</div>
                                                     <div>
                                                         <Textarea placeholder="Enter a topic here" onChange={(e) => { setAssignmentName(e.target.value) }} />
+                                                        <div className=' font-serif mb-2 '>Add a description for assignment</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentName(e.target.value) }} />
+                                                        <div className=' font-serif mb-2 '>Add a description for assignment</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentName(e.target.value) }} />
                                                         <div className='my-2'>Last date of submission</div>
                                                         <input
                                                             type="date"
