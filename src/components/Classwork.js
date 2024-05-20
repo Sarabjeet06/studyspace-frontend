@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -12,9 +12,15 @@ import { Textarea } from './ui/textarea';
 import { BACKEND_URL } from '../../config';
 import Assignment from './Assignment';
 import Quizes from './Quizes';
+import { toast } from 'sonner';
+import { useRouter } from 'next/router';
+import { Appcontext } from '@/context/AppContext';
 
 const Classwork = () => {
     const [assignmentName, setAssignmentName] = useState("");
+    const [assignmentDesc , setAssignmentDesc]= useState("");
+    const [assignmentPoint , setAssignmentPoint] = useState(0);
+    const [assignmentUrl , setAssignmentUrl] = useState("");
     const [quizQuestion, setQuizQuestion] = useState("");
     const [option1, setOption1] = useState("");
     const [option2, setOption2] = useState("");
@@ -23,16 +29,25 @@ const Classwork = () => {
     const [date, setDate] = useState("");
     const [allAssignments, setAllAssignments] = useState([]);
     const [allQuizes , setAllQuizes] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const router = useRouter();
+    const context = useContext(Appcontext);
+    const {setClassroomAssignmentList} = context;
+    const {id} = router.query;
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment`, {
+            const res = await fetch(`${BACKEND_URL}/api/assignments/getAssignment?classroom_id=${id}`, {
                 method: "GET",
+                headers: {
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
             });
             if (res.ok) {
                 const response = await res.json();
-                console.log(response);
                 setAllAssignments(response);
+                setClassroomAssignmentList(response);
             }
         } catch (error) {
             console.log(error);
@@ -43,10 +58,12 @@ const Classwork = () => {
         try{
             const res=await fetch(`${BACKEND_URL}/api/quizes/getQuiz`,{
                 method: "GET",
+                headers: {
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
             });
             if(res.ok){
                 const response = await res.json();
-                // console.log(response);
                 setAllQuizes(response);
             }
         }catch(error){
@@ -57,37 +74,52 @@ const Classwork = () => {
     useEffect(() => {
         fetchAssignments();
         fetchQuiz();
-    }, []);
+    }, [id]);
     
-    console.log(allQuizes);
     const handleAssignment = async () => {
-        // console.log(date);
         try {
+            if(!assignmentName||!date){
+                toast.warning("Enter all the fields");
+                return ;
+            }
             const assignmentDetails = {
                 assignment_name: assignmentName,
                 assignment_date: date,
+                assignment_desc: assignmentDesc,
+                assignment_point: assignmentPoint,
+                assignment_url: assignmentUrl,
+                classroom_id : id,
             }
             const res = await fetch(`${BACKEND_URL}/api/assignments/add_assignment`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json",
-                },
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
                 body: JSON.stringify(assignmentDetails),
             });
             const data = await res.json();
             if (res.ok) {
+                setOpen(false);
+                toast.success("Assignment created successfully");
                 console.log("assignment ban gaya bhai");
+                await fetchAssignments();
             }
             else {
-                console.log("ok nhi hai bhai");
+                toast.error("Couldn't add assignment");
             }
         } catch (error) {
+            toast.error("Assignment creation failed");
             console.log(error);
         }
     }
 
     const handleQuiz = async () => {
         try {
+            if(!quizQuestion||!option1||!option2||!option3||!option4){
+                toast.warning("Enter all the fields");
+                return ;
+            }
             const quizDetails = {
                 quiz_question: quizQuestion,
                 quiz_option1: option1,
@@ -95,21 +127,27 @@ const Classwork = () => {
                 quiz_option3: option3,
                 quiz_option4: option4,
             }
+            console.log("yes sir");
             const res = await fetch(`${BACKEND_URL}/api/quizes/add_quiz`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json",
-                },
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${context.sessionId}`,
+                 },
                 body: JSON.stringify(quizDetails),
             });
             const data = await res.json();
             if (res.ok) {
+                setOpen(false);
+                toast.success("Quiz created successfully");
                 console.log("quiz ban gaya bhai");
             }
             else {
+
                 console.log("ok nhi hai bhai");
             }
         } catch (error) {
+            toast.error("Quiz creation failed");
             console.log(error);
         }
     }
@@ -129,7 +167,7 @@ const Classwork = () => {
                 </div> */}
                 <div className='flex justify-end'>
 
-                    <Dialog>
+                    <Dialog open={open} onOpenChange={setOpen} >
                         <DialogTrigger className='bg-blue-500 text-white px-3 py-2 text-sm rounded-md mr-2'>
                             Create
                         </DialogTrigger>
@@ -147,9 +185,15 @@ const Classwork = () => {
                                             </TabsList>
                                             <TabsContent value="assignment">
                                                 <div className='ml-2'>
-                                                    <div className=' font-serif mb-2 '>Add a topic for assignment</div>
+                                                    <div className=' font-serif mb-2 '>Add a heading for assignment</div>
                                                     <div>
                                                         <Textarea placeholder="Enter a topic here" onChange={(e) => { setAssignmentName(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>Add a description for assignment</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentDesc(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>Total point</div>
+                                                        <input type='number' max={100} placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentPoint(e.target.value) }} />
+                                                        <div className=' font-serif my-2 '>If any url or link related to question</div>
+                                                        <input placeholder="Enter a topic here" className='w-full outline-none border rounded-md p-2' onChange={(e) => { setAssignmentUrl(e.target.value) }} />
                                                         <div className='my-2'>Last date of submission</div>
                                                         <input
                                                             type="date"
@@ -194,13 +238,13 @@ const Classwork = () => {
 
                 </div>
                 <div className=' text-xl ml-2'>Assignments</div>
-                <div className='border-t-2 border-blue-400 mx-2 my-4'></div>
+                <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allAssignments && allAssignments.map((assignment) => {
-                    return <Assignment assignment={assignment} />
+                    return <Assignment assignment={assignment} fetchAssignments={fetchAssignments} />
                 })}
                 <div className=' text-xl ml-2'>Quiz</div>
 
-                <div className='border-t-2 border-blue-400 mx-2 my-4'></div>
+                <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allQuizes&&allQuizes.map((quiz)=>{
                     return <Quizes quiz={quiz} />
                 })}

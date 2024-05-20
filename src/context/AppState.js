@@ -13,6 +13,7 @@ const AppState = ({ children }) => {
    const [mySpaceList, setMySpaceList] = useState([]);
    const [mySpaceStudyList, setMySpaceStudyList] = useState([]);
    const [mySpaceArchiveList, setMySpaceArchiveList] = useState([]);
+   const [classroomAssignmentList, setClassroomAssignmentList] = useState([]);
 
    const fetchSpaceList = useCallback(async () => {
       try {
@@ -83,6 +84,8 @@ const AppState = ({ children }) => {
             setSessionId,
             setUserDetails,
             userDetails,
+            classroomAssignmentList , 
+            setClassroomAssignmentList,
             setSpaceList,
             setMySpaceArchiveList,
             setMySpaceList,
