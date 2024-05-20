@@ -60,6 +60,10 @@ const Quizes = ({ quiz }) => {
         }
     }
 
+    const handleSubmission = async (id) => {
+
+    }
+
     return (
         <div>
             <div className='mx-2 mb-3'>
@@ -151,8 +155,6 @@ const Quizes = ({ quiz }) => {
                                 </div>
                             </PopoverContent>
                         </Popover>
-
-
                     </div>
                 </div>
             </div>
