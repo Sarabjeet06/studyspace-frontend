@@ -23,11 +23,13 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
     const context = useContext(Appcontext);
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
+    const [isCliked, setIsClicked] = useState(false);
     // const [isTeacher, setIsTeacher] = useState(false);
 
 
     const handleDelete = async (id) => {
         try {
+            setIsClicked(true);
             const res = await fetch(`${BACKEND_URL}/api/assignments/deleteAssignment/${id}`, {
                 method: "DELETE",
                 headers: {
@@ -45,6 +47,8 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
         } catch (error) {
             toast.error("Some Error occured while deleting.");
             console.log(error);
+        }finally{
+            setIsClicked(false);
         }
     };
     const handleEdit = async (id) => {
@@ -79,7 +83,7 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
     return (
         <div>
             <div className="mx-2 mb-3">
-                <div className="flex font_inter_custom justify-between items-center border rounded-md border-gray-200 py-2 pl-5 pr-4 hover:bg-blue-50 gap-1">
+                <div className="flex flex-col md:flex-row font_inter_custom justify-between items-center border rounded-md border-gray-200 py-2 pl-5 pr-4 hover:bg-blue-50 gap-1">
                     <div className='flex items-center'>
                         <div className="min-w-fit">
                             <div className='w-fit h-fit p-2 bg-gray-400 rounded-full'>
@@ -93,8 +97,8 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 pl-4">
-                            <div className="pt-1 font-semibold flex items-center">
+                        <div className="flex flex-col  gap-2 pl-4">
+                            <div className="pt-1 font-semibold flex  items-center">
                                 {assignment?.heading}{" "}
                                 <span
                                     onClick={() => {
