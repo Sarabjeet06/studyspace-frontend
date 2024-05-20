@@ -3,13 +3,23 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { useState } from "react";
 import { LuUserPlus } from "react-icons/lu";
-import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import { IoMdMore } from "react-icons/io";
 import InviteUserModal from "./inviteUserModal";
 import { BACKEND_URL } from "../../config";
 import { Appcontext } from "@/context/AppContext";
 import { useRouter } from "next/router";
+import {
+   Popover,
+   PopoverContent,
+   PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "rsuite";
+
+// import { Button } from "@nextui-org/react";
+// import { UserIcon } from './UserIcon';
+// import Button from "rsuite";
+import { LuUser } from "react-icons/lu";
 
 const People = () => {
    const [open, setOpen] = useState(false);
@@ -121,9 +131,27 @@ const People = () => {
                      />
                      <div className="flex p-3 justify-between">
                         {user?.member_id?.username || "no name"}
-                        <div className="absolute hover:bg-slate-100 p-2 rounded-full right-6">
-                           <IoMdMore />
-                        </div>
+
+                        <Popover>
+
+                           <PopoverTrigger>
+                              <div className="absolute hover:bg-slate-100 p-2 rounded-full right-6">
+                                 <IoMdMore />
+                              </div>
+                           </PopoverTrigger>
+
+                           <PopoverContent>
+                              <Button color="danger" variant="bordered" startContent={<LuUser />} className="flex">
+                                 <div className="flex gap-4 items-center">
+                                    {/* <LuUser /> */}
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                    Delete user
+                                 </div>
+                              </Button>
+
+                           </PopoverContent>
+                        </Popover>
                      </div>
                      <hr />
                   </div>
