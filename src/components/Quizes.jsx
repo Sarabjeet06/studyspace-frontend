@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from './ui/textarea';
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
-
+import { toast } from "sonner";
 
 
 const Quizes = ({ quiz }) => {
@@ -20,6 +20,8 @@ const Quizes = ({ quiz }) => {
     const [quizOption2, setQuizOption2] = useState("");
     const [quizOption3, setQuizOption3] = useState("");
     const [quizOption4, setQuizOption4] = useState("");
+    const [open1 ,setOpen1] = useState("");
+    const [open2 ,setOpen2] = useState("");
 
     const handleDelete = async (id) => {
         try {
@@ -27,16 +29,23 @@ const Quizes = ({ quiz }) => {
                 method: "DELETE",
             });
             if (res.ok) {
+                setOpen1(false);
                 console.log("Delete kardia bhai");
+                toast.success("Quiz deleted successfully");
             } else {
                 console.log("delete nhi hua bhai");
             }
         } catch (error) {
+            toast.error("Some error occured while deleting.")
             console.log(error);
         }
     }
 
     const handleEdit = async (id) => {
+        if(!quizQuestion||!quizOption1||!quizOption2||!quizOption3||!quizOption4){
+            toast.error("Please enter all the fields.");
+            return ;
+        }
         const updatedQuiz = {
             quiz_question: quizQuestion,
             quiz_option1: quizOption1,
@@ -53,9 +62,12 @@ const Quizes = ({ quiz }) => {
                 body: JSON.stringify(updatedQuiz),
             })
             if (res.ok) {
+                setOpen2(false);
+                toast.success("quiz edited successfuly");
                 console.log("update ho gaya bhai");
             }
         } catch (error) {
+            toast.error("Error while editing.")
             console.log(error);
         }
     }
@@ -89,6 +101,8 @@ const Quizes = ({ quiz }) => {
                             </div>
                         </div>
                     </div>
+                    
+
                     <div>
                         <Popover>
                             <PopoverTrigger>
@@ -106,7 +120,7 @@ const Quizes = ({ quiz }) => {
 
                             <PopoverContent className='w-fit py-2'>
                                 <div className='flex flex-col gap-1 w-fit'>
-                                    <Dialog>
+                                    <Dialog open={open2} onOpenChange={setOpen2}>
                                         <DialogTrigger className=' bg-white hover:bg-gray-100  mr-2 py-1 px-3 rounded-md text-sm mb-1 md:mb-0 w-14'>Edit</DialogTrigger>
                                         <DialogContent>
                                             <DialogHeader>
@@ -135,7 +149,7 @@ const Quizes = ({ quiz }) => {
                                         </DialogContent>
                                     </Dialog>
 
-                                    <Dialog>
+                                    <Dialog open={open1} onOpenChange={setOpen1} >
                                         <DialogTrigger className='hover:bg-gray-100 py-1 px-3 w-14 rounded-md text-sm'>Delete</DialogTrigger>
 
                                         <DialogContent>

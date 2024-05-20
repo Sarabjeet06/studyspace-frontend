@@ -12,6 +12,7 @@ import { Textarea } from './ui/textarea';
 import { BACKEND_URL } from '../../config';
 import Assignment from './Assignment';
 import Quizes from './Quizes';
+import { toast } from "sonner";
 
 const Classwork = () => {
     const [assignmentName, setAssignmentName] = useState("");
@@ -23,6 +24,8 @@ const Classwork = () => {
     const [date, setDate] = useState("");
     const [allAssignments, setAllAssignments] = useState([]);
     const [allQuizes , setAllQuizes] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
 
     const fetchAssignments = async () => {
         try {
@@ -63,6 +66,10 @@ const Classwork = () => {
     const handleAssignment = async () => {
         // console.log(date);
         try {
+            if(!assignmentName||!date){
+                toast.warning("Enter all the fields");
+                return ;
+            }
             const assignmentDetails = {
                 assignment_name: assignmentName,
                 assignment_date: date,
@@ -76,18 +83,25 @@ const Classwork = () => {
             });
             const data = await res.json();
             if (res.ok) {
+                setOpen(false);
+                toast.success("Assignment created successfully");
                 console.log("assignment ban gaya bhai");
             }
             else {
                 console.log("ok nhi hai bhai");
             }
         } catch (error) {
+            toast.error("Assignment creation failed");
             console.log(error);
         }
     }
 
     const handleQuiz = async () => {
         try {
+            if(!quizQuestion||!option1||!option2||!option3||!option4){
+                toast.warning("Enter all the fields");
+                return ;
+            }
             const quizDetails = {
                 quiz_question: quizQuestion,
                 quiz_option1: option1,
@@ -95,6 +109,7 @@ const Classwork = () => {
                 quiz_option3: option3,
                 quiz_option4: option4,
             }
+            console.log("yes sir");
             const res = await fetch(`${BACKEND_URL}/api/quizes/add_quiz`, {
                 method: "POST",
                 headers: {
@@ -104,12 +119,16 @@ const Classwork = () => {
             });
             const data = await res.json();
             if (res.ok) {
+                setOpen(false);
+                toast.success("Quiz created successfully");
                 console.log("quiz ban gaya bhai");
             }
             else {
+
                 console.log("ok nhi hai bhai");
             }
         } catch (error) {
+            toast.error("Quiz creation failed");
             console.log(error);
         }
     }
@@ -129,7 +148,7 @@ const Classwork = () => {
                 </div> */}
                 <div className='flex justify-end'>
 
-                    <Dialog>
+                    <Dialog open={open} onOpenChange={setOpen} >
                         <DialogTrigger className='bg-blue-500 text-white px-3 py-2 text-sm rounded-md mr-2'>
                             Create
                         </DialogTrigger>

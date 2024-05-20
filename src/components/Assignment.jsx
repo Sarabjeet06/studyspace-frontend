@@ -11,12 +11,15 @@ import {
 import { Textarea } from './ui/textarea';
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Image from 'next/image';
-
+import Assignmentsubmission from './Assignmentsubmission';
+import { toast } from "sonner";
 
 
 const Assignment = ({ assignment }) => {
     const [date, setDate] = useState("");
     const [assignmentName, setAssignmentName] = useState("");
+    const [open1,setOpen1] = useState(false);
+    const [open2,setOpen2] = useState(false);
 
     const handleDelete = async (id) => {
         try {
@@ -24,11 +27,14 @@ const Assignment = ({ assignment }) => {
                 method: "DELETE",
             });
             if (res.ok) {
+                setOpen1(false);
                 console.log("Delete kardia bhai");
+                toast.success("Assignment deleted successfully");
             } else {
                 console.log("delete nhi hua bhai");
             }
         } catch (error) {
+            toast.error("Some Error occured while deleting.")
             console.log(error);
         }
     }
@@ -46,9 +52,12 @@ const Assignment = ({ assignment }) => {
                 body: JSON.stringify(updatedAssignment),
             })
             if (res.ok) {
+                setOpen2(false);
                 console.log("update ho gaya bhai");
+                toast.success("Assignment updated successfully");
             }
         } catch (error) {
+            toast.error("Error occured while updating assignment");
             console.log(error);
         }
     }
@@ -63,6 +72,7 @@ const Assignment = ({ assignment }) => {
                             <div className='text-sm text-gray-700'>{new Date(assignment?.assignment_date).toLocaleString()}</div>
                         </div>
                     </div>
+                    <Assignmentsubmission />
                     <div>
                         <Popover>
                             <PopoverTrigger>
@@ -79,7 +89,7 @@ const Assignment = ({ assignment }) => {
 
                             <PopoverContent className='w-fit py-2'>
                                 <div className='flex flex-col gap-1 w-fit'>
-                                    <Dialog>
+                                    <Dialog open={open2} onOpenChange={setOpen2} >
                                         <DialogTrigger className='bg-white hover:bg-gray-100  mr-2 py-1 px-3 rounded-md text-sm mb-1 md:mb-0 w-14'>Edit</DialogTrigger>
                                         <DialogContent>
                                             <DialogHeader>
@@ -104,14 +114,14 @@ const Assignment = ({ assignment }) => {
                                         </DialogContent>
                                     </Dialog>
 
-                                    <Dialog>
+                                    <Dialog open={open1} onOpenChange={setOpen1} >
                                         <DialogTrigger className='hover:bg-gray-100 py-1 px-3 w-14 rounded-md text-sm'>Delete</DialogTrigger>
 
                                         <DialogContent>
                                             <DialogDescription>
                                                 <div className='text-center text-lg p-4 *:my-4'>
                                                     <div>
-                                                        Are you sure you want to delete this assignment?
+                                                        Are you sure you want to delete this Quiz?
                                                     </div>
                                                     <div className='flex justify-center gap-4'>
                                                         {/* <button className='py-2 px-6 bg-[#b9bbc7] hover:bg-[#9da0b2] rounded-md text-white text-sm'>Cancel</button> */}
