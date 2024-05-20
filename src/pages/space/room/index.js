@@ -118,7 +118,7 @@ const index = () => {
             <div className="w-full my-3 h-[2px] bg-slate-200"></div>
             <div>
                {activeTab === "stream" && <Stream />}
-               {activeTab === "classwork" && <Classwork />}
+               {activeTab === "classwork" && <Classwork  />}
                {activeTab === "people" && (
                      <People name={"Student"} />
                )}
