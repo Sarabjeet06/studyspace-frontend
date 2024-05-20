@@ -196,13 +196,13 @@ const Classwork = () => {
 
                 </div>
                 <div className=' text-xl ml-2'>Assignments</div>
-                <div className='border-t-2 border-blue-400 mx-2 my-4'></div>
+                <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allAssignments && allAssignments.map((assignment) => {
                     return <Assignment assignment={assignment} />
                 })}
                 <div className=' text-xl ml-2'>Quiz</div>
 
-                <div className='border-t-2 border-blue-400 mx-2 my-4'></div>
+                <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
                 {allQuizes&&allQuizes.map((quiz)=>{
                     return <Quizes quiz={quiz} />
                 })}
