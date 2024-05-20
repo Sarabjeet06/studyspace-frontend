@@ -117,10 +117,10 @@ const index = () => {
             </div>
             <div className="w-full my-3 h-[2px] bg-slate-200"></div>
             <div>
-               {activeTab === "stream" && <Stream />}
-               {activeTab === "classwork" && <Classwork  />}
+               {activeTab === "stream" && <Stream role={UserRole}/>}
+               {activeTab === "classwork" && <Classwork  role={UserRole}/>}
                {activeTab === "people" && (
-                     <People name={"Student"} />
+                     <People role={UserRole} name={"Student"} />
                )}
                {activeTab === "grade" && <GradeTable />}
             </div>

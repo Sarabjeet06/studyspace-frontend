@@ -11,14 +11,25 @@ import { BACKEND_URL } from "../../config";
 import { Appcontext } from "@/context/AppContext";
 import { useRouter } from "next/router";
 
-const People = () => {
+const People = ({ role }) => {
    const [open, setOpen] = useState(false);
    const [open2, setOpen2] = useState(false);
    const context = useContext(Appcontext);
    const router = useRouter();
    const { sessionId, spaceList } = context;
    const [members, setMembers] = useState([]);
+   const [isTeacher, setIsTeacher] = useState(false);
    const { id } = router.query;
+
+   useEffect(() => {
+      if (role === 'teacher') {
+         setIsTeacher(true);
+      }
+      else {
+         setIsTeacher(false);
+      }
+   }, [role]);
+
    const handlefetch = async () => {
       try {
          const res = await fetch(`${BACKEND_URL}/api/members/get_members_by_id`, {
@@ -93,17 +104,19 @@ const People = () => {
          <div className="max-w-4xl mx-auto my-5 p-2">
             <div className="flex   justify-between text-blue-500 rounded-md">
                <div className="font_poppins_custom text-xl font-medium">{"Student"}</div>
-               <div className="hover:bg-slate-100 rounded-full p-2">
-                  <div
-                     onClick={() => {
-                        setOpen2(true);
-                     }}
-                     className="border-3 rounded-md"
-                  >
-                     {" "}
-                     <LuUserPlus size={20} />
+               {
+                  isTeacher && <div className="hover:bg-slate-100 rounded-full p-2">
+                     <div
+                        onClick={() => {
+                           setOpen2(true);
+                        }}
+                        className="border-3 rounded-md"
+                     >
+                        {" "}
+                        <LuUserPlus size={20} />
+                     </div>
                   </div>
-               </div>
+               }
             </div>
 
             <div className="text-blue-500">
