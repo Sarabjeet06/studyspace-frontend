@@ -57,8 +57,8 @@ const Classwork = ({ role }) => {
             });
             if (res.ok) {
                 const response = await res.json();
-                setAllAssignments(response);
-                setClassroomAssignmentList(response);
+                setAllAssignments(response?.data);
+                setClassroomAssignmentList(response?.data);
             }
         } catch (error) {
             console.log(error);
@@ -252,7 +252,7 @@ const Classwork = ({ role }) => {
                 </div>
                 <div className=' text-xl ml-2'>Assignments</div>
                 <div className='border-t-2 border-blue-400 mx-2 mt-2 mb-4'></div>
-                {allAssignments && allAssignments.map((assignment) => {
+                {allAssignments && allAssignments?.map((assignment) => {
                     return <Assignment teacher={isTeacher} assignment={assignment} fetchAssignments={fetchAssignments} />
                 })}
                 <div className=' text-xl ml-2'>Quiz</div>
