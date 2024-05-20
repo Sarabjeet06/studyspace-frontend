@@ -68,26 +68,41 @@ const Quizes = ({ quiz }) => {
         <div>
             <div className='mx-2 mb-3'>
                 <div className='flex justify-between items-center border rounded-md border-gray-200 py-2 pl-5 pr-4 hover:bg-blue-50'>
-                    <div className='flex flex-col gap-2'>
-                        <div className='pt-1'>{quiz?.quiz_question}</div>
-                        <div className='flex gap-10'>
-                            <div className='flex gap-2 text-sm'>
-                                <div>Option 1: </div>
-                                <div>{quiz?.quiz_option1}</div>
-                            </div>
-                            <div className='flex gap-2 text-sm'>
-                                <div>Option 2: </div>
-                                <div>{quiz?.quiz_option2}</div>
-                            </div>
-                            <div className='flex gap-2 text-sm'>
-                                <div>Option 3: </div>
-                                <div>{quiz?.quiz_option3}</div>
-                            </div>
-                            <div className='flex gap-2 text-sm'>
-                                <div>Option 4: </div>
-                                <div>{quiz?.quiz_option4}</div>
+                    <div className='flex items-center gap-4'>
+                        <div className='min-w-fit'>
+                            <div className='w-fit h-fit p-2 bg-gray-400 rounded-full'>
+                                <Image
+                                    unoptimized
+                                    className='w-6 h-6'
+                                    width={100}
+                                    height={100}
+                                    src='/images/assignment-icon.png'
+                                />
                             </div>
                         </div>
+
+                        <div className='flex flex-col gap-2'>
+                            <div className='pt-1'>{quiz?.quiz_question}</div>
+                            <div className='flex gap-10'>
+                                <div className='flex gap-2 text-sm'>
+                                    <div>Option 1: </div>
+                                    <div>{quiz?.quiz_option1}</div>
+                                </div>
+                                <div className='flex gap-2 text-sm'>
+                                    <div>Option 2: </div>
+                                    <div>{quiz?.quiz_option2}</div>
+                                </div>
+                                <div className='flex gap-2 text-sm'>
+                                    <div>Option 3: </div>
+                                    <div>{quiz?.quiz_option3}</div>
+                                </div>
+                                <div className='flex gap-2 text-sm'>
+                                    <div>Option 4: </div>
+                                    <div>{quiz?.quiz_option4}</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div>
                         <Popover>
