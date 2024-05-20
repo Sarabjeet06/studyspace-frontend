@@ -67,6 +67,7 @@ const Quizes = ({ teacher, quiz }) => {
                 setOpen2(false);
                 toast.success("quiz edited successfuly");
                 console.log("update ho gaya bhai");
+                await fetchQuiz();
             }
         } catch (error) {
             toast.error("Error while editing.")
@@ -97,7 +98,7 @@ const Quizes = ({ teacher, quiz }) => {
 
                         <div className='flex flex-col gap-2'>
                             <div className='pt-1'>{quiz?.quiz_question}</div>
-                            <div className='flex gap-10'>
+                            <div className='flex gap-10 flex-wrap'>
                                 <div className='flex gap-2 text-sm'>
                                     <div>Option 1: </div>
                                     <div>{quiz?.quiz_option1}</div>

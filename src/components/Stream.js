@@ -32,10 +32,9 @@ export default function Stream({ role }) {
    };
 
    useEffect(() => {
-      if (role === 'teacher') {
+      if (role === "teacher") {
          setIsTeacher(true);
-      }
-      else {
+      } else {
          setIsTeacher(false);
       }
    }, [role]);
@@ -53,7 +52,7 @@ export default function Stream({ role }) {
          );
          if (res.ok) {
             const response = await res.json();
-            setClassroomAssignmentList(response);
+            setClassroomAssignmentList(response?.data);
          }
       } catch (error) {
          console.log(error);
@@ -114,7 +113,6 @@ export default function Stream({ role }) {
          console.error(err);
       }
    };
-
    return (
       <div className="">
          <div className="w-full">
@@ -141,7 +139,6 @@ export default function Stream({ role }) {
                </div>
             </div>
             <div className="flex lg:flex-row flex-col gap-8 mt-8">
-               {console.log(classroomAssignmentList)}
                <div className="lg:flex lg:flex-col gap-3 hidden rounded shadow-md w-52 h-fit min-h-48 p-3 bg-white">
                   <div className="font-semibold">Upcoming work</div>
                   {classroomAssignmentList && classroomAssignmentList?.length === 0 && (
@@ -155,8 +152,9 @@ export default function Stream({ role }) {
                </div>
                <div className="w-full py-3">
                   <div
-                     className={`w-full h-fit ${!isVisible && "py-5"
-                        } px-5 rounded-lg border-b-[1px] shadow-[0px_3px_6px_2px_rgba(0,0,0,0.15)] bg-white`}
+                     className={`w-full h-fit ${
+                        !isVisible && "py-5"
+                     } px-5 rounded-lg border-b-[1px] shadow-[0px_3px_6px_2px_rgba(0,0,0,0.15)] bg-white`}
                   >
                      {isVisible && (
                         <button
@@ -316,14 +314,14 @@ export default function Stream({ role }) {
                                  <Image
                                     className=" rounded-full w-10 h-10"
                                     src={
-                                       context?.userDetails?.profile_url ||
+                                       anouncement?.created_by?.profile_url ||
                                        "/images/announcement-icon.png"
                                     }
                                     width={30}
                                     height={30}
                                  />
                                  <div>
-                                    <div className="">{context?.userDetails?.username}</div>
+                                    <div className="">{anouncement?.created_by?.username}</div>
                                     <div className="text-xs text-slate-500">
                                        {new Date(anouncement?.created_on).toDateString()}
                                     </div>
@@ -333,26 +331,28 @@ export default function Stream({ role }) {
                               <div className="text-start py-2 flex items-center gap-3">
                                  {anouncement?.description || "unknown"}
                               </div>
-                              <span
-                                 onClick={() => {
-                                    window.open(`${anouncement?.link_url}`);
-                                 }}
-                                 className="text-xs flex items-center gap-0 text-blue-500 underline cursor-pointer"
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="15px"
-                                    viewBox="0 -960 960 960"
-                                    width="15px"
-                                    fill="#3C82F6"
+                              {anouncement?.link_url && (
+                                 <span
+                                    onClick={() => {
+                                       window.open(`${anouncement?.link_url}`);
+                                    }}
+                                    className="text-xs flex items-center gap-0 text-blue-500 underline cursor-pointer"
                                  >
-                                    <path d="M330-240q-104 0-177-73T80-490q0-104 73-177t177-73h370q75 0 127.5 52.5T880-560q0 75-52.5 127.5T700-380H350q-46 0-78-32t-32-78q0-46 32-78t78-32h370v80H350q-13 0-21.5 8.5T320-490q0 13 8.5 21.5T350-460h350q42-1 71-29.5t29-70.5q0-42-29-71t-71-29H330q-71-1-120.5 49T160-490q0 70 49.5 119T330-320h390v80H330Z" />
-                                 </svg>
-                                 link
-                              </span>{" "}
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       height="15px"
+                                       viewBox="0 -960 960 960"
+                                       width="15px"
+                                       fill="#3C82F6"
+                                    >
+                                       <path d="M330-240q-104 0-177-73T80-490q0-104 73-177t177-73h370q75 0 127.5 52.5T880-560q0 75-52.5 127.5T700-380H350q-46 0-78-32t-32-78q0-46 32-78t78-32h370v80H350q-13 0-21.5 8.5T320-490q0 13 8.5 21.5T350-460h350q42-1 71-29.5t29-70.5q0-42-29-71t-71-29H330q-71-1-120.5 49T160-490q0 70 49.5 119T330-320h390v80H330Z" />
+                                    </svg>
+                                    link
+                                 </span>
+                              )}{" "}
                               <div className="absolute top-2 right-4">
-                                 {
-                                    isTeacher && <Popover>
+                                 {isTeacher && (
+                                    <Popover>
                                        <PopoverTrigger>
                                           <div className="relative w-12 h-12 rounded-full hover:bg-gray-200">
                                              <Image
@@ -386,7 +386,7 @@ export default function Stream({ role }) {
                                           </div>
                                        </PopoverContent>
                                     </Popover>
-                                 }
+                                 )}
                               </div>
                            </div>
                         ))}
