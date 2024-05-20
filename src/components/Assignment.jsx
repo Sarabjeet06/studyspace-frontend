@@ -16,12 +16,15 @@ import Image from 'next/image';
 import Assignmentsubmission from './Assignmentsubmission';
 import { toast } from "sonner";
 import { Appcontext } from "@/context/AppContext";
+import { useRouter } from "next/router";
 
 const Assignment = ({ teacher, assignment, fetchAssignments }) => {
     const [date, setDate] = useState("");
     const [assignmentName, setAssignmentName] = useState("");
     const context = useContext(Appcontext);
     const [open1, setOpen1] = useState(false);
+    const router = useRouter();
+    const {id} = router.query;
     const [open2, setOpen2] = useState(false);
     const [isCliked, setIsClicked] = useState(false);
     // const [isTeacher, setIsTeacher] = useState(false);
@@ -83,8 +86,8 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
     return (
         <div>
             <div className="mx-2 mb-3">
-                <div className="flex flex-col md:flex-row font_inter_custom justify-between items-center border rounded-md border-gray-200 py-2 pl-5 pr-4 hover:bg-blue-50 gap-1">
-                    <div className='flex items-center'>
+                <div className="flex flex-col md:flex-row font_inter_custom justify-between items-center border rounded-md border-gray-200 py-3 pl-5 pr-4 hover:bg-blue-50 gap-1">
+                    <div className='flex items-center w-10/12'>
                         <div className="min-w-fit">
                             <div className='w-fit h-fit p-2 bg-gray-400 rounded-full'>
                                 <Image
@@ -137,9 +140,8 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
                             </div>
                         </div>
                     </div>
-                    
                     <div>
-                        {teacher ? <></> : <Assignmentsubmission/>}
+                        {teacher ? <></> : !assignment?.submitted ? <Assignmentsubmission assignment_id={assignment.assignment_id} fetchAssignments={fetchAssignments} classroom_id={id}/> : <div className="text-xs text-green-600">Submitted</div>}
                         {
                             teacher && <Popover>
                                 <PopoverTrigger>
