@@ -89,7 +89,7 @@ const index = () => {
       if(typeof id !== "undefined" && userDetails)
       handle_role();
       setActiveTab(tabs[0].id);
-   },[id]);
+   },[id , userDetails]);
    return (
       <HomePageLayout>
          <section className="md:px-16 px-5 py-7">
@@ -123,7 +123,7 @@ const index = () => {
                {activeTab === "people" && (
                      <People role={UserRole} name={"Student"} />
                )}
-               {activeTab === "grade" && <GradeTable />}
+               {activeTab === "grade" && <GradeTable role={UserRole}/>}
             </div>
          </section>
       </HomePageLayout>

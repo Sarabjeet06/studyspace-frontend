@@ -32,10 +32,8 @@ const Quizes = ({ teacher, quiz }) => {
             });
             if (res.ok) {
                 setOpen1(false);
-                console.log("Delete kardia bhai");
                 toast.success("Quiz deleted successfully");
             } else {
-                console.log("delete nhi hua bhai");
             }
         } catch (error) {
             toast.error("Some error occured while deleting.")
@@ -66,7 +64,6 @@ const Quizes = ({ teacher, quiz }) => {
             if (res.ok) {
                 setOpen2(false);
                 toast.success("quiz edited successfuly");
-                console.log("update ho gaya bhai");
                 await fetchQuiz();
             }
         } catch (error) {

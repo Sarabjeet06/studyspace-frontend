@@ -6,18 +6,15 @@ import HomePageLayout from "@/components/HomePageLayout";
 import Homenavbar from "@/components/Homenavbar";
 import Homesidemenubar from "@/components/Homesidemenubar";
 import { Appcontext } from "@/context/AppContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const index = () => {
-   const [className, setClassName] = useState("Science");
-   const [classBtn, setClassBtn] = useState("Enter Class Room");
-   const [classDescription, setClassDescription] = useState("Non-Medical");
 
    const context = useContext(Appcontext);
    const { mySpaceList, mySpaceStudyList} = context;
    return (
       <HomePageLayout>
-         <div class="flex flex-wrap md:justify-start justify-center items-center md:p-16 p-6 gap-8">
+         <div className="flex flex-wrap md:justify-start justify-center items-center md:p-16 p-6 gap-8">
             {mySpaceList &&
                mySpaceList?.map((classroom) => (
                   <Card

@@ -8,13 +8,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import JoinClassModal from "./joinClassModal";
 import InviteUserModal from "./inviteUserModal";
 import { Appcontext } from "@/context/AppContext";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 import { useRouter } from "next/router";
+import LogoutModal from "./logoutModal";
 
 const HomePageLayout = ({ children }) => {
    const [menuClicked, setMenuClicked] = useState(false);
    const [expand1, setExpand1] = useState(true);
    const [expand2, setExpand2] = useState(true);
    const [expand3, setExpand3] = useState(true);
+   const [expand4 , setExpand4] = useState(false);
    const [openJoinModal, setOpenJoinModal] = useState(false);
    const [openCreateModal, setOpenCreateModal] = useState(false);
    const pathname = usePathname();
@@ -47,7 +51,7 @@ const HomePageLayout = ({ children }) => {
                      viewBox="0 0 16 16"
                   >
                      <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
                      />
                   </svg>
@@ -149,7 +153,7 @@ const HomePageLayout = ({ children }) => {
                   >
                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                      <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
                      />
                   </svg>
@@ -161,7 +165,7 @@ const HomePageLayout = ({ children }) => {
             <div
                className={`flex  overflow-y-auto  flex-col gap-5 h-[90vh] items-center  border-r-2 border-gray-200  md:p-3 p-2  ${
                   menuClicked ? "md:w-1/5 w-16" : "items-center w-16"
-               }  bg-white transition-all md:mt-0 mt-16 duration-300 ease-in-out  `}
+               }  bg-white transition-all relative md:mt-0 mt-16 duration-300 ease-in-out  `}
             >
                <Link
                   href="/space"
@@ -281,30 +285,34 @@ const HomePageLayout = ({ children }) => {
                      menuClicked &&
                      mySpaceList &&
                      mySpaceList?.map((space, index) => {
-                        if(space?.archived === false)return (
-                        <motion.div
-                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
-                           initial={{ opacity: 0, translateY: 50 }}
-                           animate={{ opacity: 1, translateY: 0 }}
-                           transition={{ delay: 0.1 }}
-                           className="pl-5 py-3 cursor-pointer md:flex hidden flex-col gap-4"
-                        >
-                           <div className="flex items-start gap-2">
-                              <div
-                                 style={{ background: getRandomColor() }}
-                                 className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                        if (space?.archived === false)
+                           return (
+                              <motion.div
+                                 onClick={() => {
+                                    router.push(`/space/room?id=${space?.classroom_id}`);
+                                 }}
+                                 initial={{ opacity: 0, translateY: 50 }}
+                                 animate={{ opacity: 1, translateY: 0 }}
+                                 transition={{ delay: 0.1 }}
+                                 className="pl-5 py-3 cursor-pointer md:flex hidden flex-col gap-4"
                               >
-                                 {space?.classroom_name[0]}
-                              </div>
-                              <div className="text-xs md:block hidden">
-                                 <div>{space?.classroom_name}</div>
-                                 <div className="font_inter_custom text-gray-500">
-                                    {space?.classroom_section}
+                                 <div className="flex items-start gap-2">
+                                    <div
+                                       style={{ background: getRandomColor() }}
+                                       className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                                    >
+                                       {space?.classroom_name[0]}
+                                    </div>
+                                    <div className="text-xs md:block hidden">
+                                       <div>{space?.classroom_name}</div>
+                                       <div className="font_inter_custom text-gray-500">
+                                          {space?.classroom_section}
+                                       </div>
+                                    </div>
                                  </div>
-                              </div>
-                           </div>
-                        </motion.div>
-                     )})}
+                              </motion.div>
+                           );
+                     })}
                </div>
 
                <div className="w-full">
@@ -369,31 +377,34 @@ const HomePageLayout = ({ children }) => {
                      menuClicked &&
                      mySpaceStudyList &&
                      mySpaceStudyList?.map((space, index) => {
-                        if(space?.archived === false) return (
-                        <motion.div
-                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
-
-                           initial={{ opacity: 0, translateY: 50 }}
-                           animate={{ opacity: 1, translateY: 0 }}
-                           transition={{ delay: 0.1 }}
-                           className="pl-5 cursor-pointer py-3 md:flex hidden flex-col gap-4"
-                        >
-                           <div className="flex items-start gap-2">
-                              <div
-                                 style={{ background: getRandomColor() }}
-                                 className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                        if (space?.archived === false)
+                           return (
+                              <motion.div
+                                 onClick={() => {
+                                    router.push(`/space/room?id=${space?.classroom_id}`);
+                                 }}
+                                 initial={{ opacity: 0, translateY: 50 }}
+                                 animate={{ opacity: 1, translateY: 0 }}
+                                 transition={{ delay: 0.1 }}
+                                 className="pl-5 cursor-pointer py-3 md:flex hidden flex-col gap-4"
                               >
-                                 {space?.classroom_name[0]}
-                              </div>
-                              <div className="text-xs md:block hidden">
-                                 <div>{space?.classroom_name}</div>
-                                 <div className="font_inter_custom text-gray-500">
-                                    {space?.classroom_section}
+                                 <div className="flex items-start gap-2">
+                                    <div
+                                       style={{ background: getRandomColor() }}
+                                       className="w-8 h-8  text-white rounded-full p-2 text-sm flex items-center justify-center"
+                                    >
+                                       {space?.classroom_name[0]}
+                                    </div>
+                                    <div className="text-xs md:block hidden">
+                                       <div>{space?.classroom_name}</div>
+                                       <div className="font_inter_custom text-gray-500">
+                                          {space?.classroom_section}
+                                       </div>
+                                    </div>
                                  </div>
-                              </div>
-                           </div>
-                        </motion.div>
-                     )})}
+                              </motion.div>
+                           );
+                     })}
                </div>
 
                <div className="w-full">
@@ -459,7 +470,9 @@ const HomePageLayout = ({ children }) => {
                      mySpaceArchiveList &&
                      mySpaceArchiveList?.map((space, index) => (
                         <motion.div
-                        onClick={()=>{router.push(`/space/room?id=${space?.classroom_id}`)}}
+                           onClick={() => {
+                              router.push(`/space/room?id=${space?.classroom_id}`);
+                           }}
                            initial={{ opacity: 0, translateY: 50 }}
                            animate={{ opacity: 1, translateY: 0 }}
                            transition={{ delay: 0.1 }}
@@ -482,6 +495,65 @@ const HomePageLayout = ({ children }) => {
                         </motion.div>
                      ))}
                </div>
+               <div className="absolute w-full p-2 px-4 bottom-5 left-0">
+                  {menuClicked ? (
+                     <div onClick={()=>{setExpand4(true)}} className="flex font-medium text-red-600 cursor-pointer items-center justify-start  rounded-lg gap-3 p-2  w-full">
+                        <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           height="24px"
+                           className="md:block hidden"
+                           viewBox="0 -960 960 960"
+                           width="24px"
+                           fill="#DC2625"
+                        >
+                           <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                        </svg>
+                        <div className="md:block hidden">logout</div>
+
+                        <TooltipProvider>
+                           <Tooltip>
+                              <TooltipTrigger className="md:hidden block">
+                                 {" "}
+                                 <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 -960 960 960"
+                                    width="24px"
+                                    fill="#DC2625"
+                                 >
+                                    <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                                 </svg>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                 <p>Log out</p>
+                              </TooltipContent>
+                           </Tooltip>
+                        </TooltipProvider>
+                     </div>
+                  ) : (
+                     <div onClick={()=>{setExpand4(true)}} className="w-full flex items-center justify-center">
+                        <TooltipProvider>
+                           <Tooltip>
+                              <TooltipTrigger>
+                                 {" "}
+                                 <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 -960 960 960"
+                                    width="24px"
+                                    fill="#DC2625"
+                                 >
+                                    <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                                 </svg>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                 <p>Log out</p>
+                              </TooltipContent>
+                           </Tooltip>
+                        </TooltipProvider>
+                     </div>
+                  )}
+               </div>
             </div>
 
             <div
@@ -501,6 +573,8 @@ const HomePageLayout = ({ children }) => {
                open={openCreateModal}
                setOpen={setOpenCreateModal}
             />
+
+            <LogoutModal open={expand4} setOpen={setExpand4}/>
          </section>
       </div>
    );

@@ -3,17 +3,17 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { Appcontext } from "./AppContext";
 import { BACKEND_URL } from "../../config";
+import { useRouter } from "next/router";
 
 const AppState = ({ children }) => {
-   const [sessionId, setSessionId] = useState(
-      typeof window !== "undefined" && localStorage.getItem("spaceToken")
-   );
+   const sessionId = typeof window !== "undefined" && localStorage.getItem("spaceToken")
    const [userDetails, setUserDetails] = useState([]);
    const [spaceList, setSpaceList] = useState([]);
    const [mySpaceList, setMySpaceList] = useState([]);
    const [mySpaceStudyList, setMySpaceStudyList] = useState([]);
    const [mySpaceArchiveList, setMySpaceArchiveList] = useState([]);
    const [classroomAssignmentList, setClassroomAssignmentList] = useState([]);
+   const router = useRouter();
 
    const fetchSpaceList = useCallback(async () => {
       try {
@@ -21,7 +21,7 @@ const AppState = ({ children }) => {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
-               Authorization: `Bearer ${sessionId}`,
+               Authorization: `Bearer ${typeof window !== "undefined" && localStorage.getItem("spaceToken") || sessionId}`,
             },
          });
          if (res.ok) {
@@ -50,6 +50,10 @@ const AppState = ({ children }) => {
       } catch (e) {
          console.error("Failed to fetch", e);
       }
+   }, [sessionId , userDetails]);
+
+   useEffect(() => {
+         fetchSpaceList();
    }, [sessionId]);
 
    useEffect(() => {
@@ -59,7 +63,7 @@ const AppState = ({ children }) => {
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${sessionId}`,
+                  Authorization: `Bearer ${typeof window !== "undefined" && localStorage.getItem("spaceToken") || sessionId}`,
                },
             });
             if (res.ok) {
@@ -73,15 +77,21 @@ const AppState = ({ children }) => {
       if (sessionId !== null) fetchUser();
    }, [sessionId]);
 
-   useEffect(() => {
-      if (sessionId !== null) fetchSpaceList();
-   }, [fetchSpaceList, sessionId]);
+   const handle_out = async ()=>{
+      localStorage.removeItem("spaceToken");
+      setUserDetails([]);
+      setSpaceList([]);
+      setMySpaceList([]);
+      setMySpaceStudyList([]);
+      setMySpaceArchiveList([]);
+      setClassroomAssignmentList([]);
+      router.push("/login");
+   }
 
    return (
       <Appcontext.Provider
          value={{
             sessionId,
-            setSessionId,
             setUserDetails,
             userDetails,
             classroomAssignmentList , 
@@ -94,6 +104,7 @@ const AppState = ({ children }) => {
             fetchSpaceList,
             mySpaceArchiveList,
             mySpaceList,
+            handle_out,
             mySpaceStudyList,
          }}
       >

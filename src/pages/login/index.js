@@ -22,7 +22,6 @@ const loginPage = () => {
         try {
             signInWithPopup(auth, provider)
                 .then(async (result) => {
-                    console.log(result);
                     const user = result.user;
                     await handleLogin(user?.providerData[0]);
                 })
@@ -60,7 +59,6 @@ const loginPage = () => {
             });
             const data = await res.json();
             if (res.ok) {
-                console.log("user login ho gaya");
                 toast.success("Login Successfull");
                 localStorage.setItem("spaceToken"  , data?.data?.hashToken )
                 if(space_id){
@@ -69,8 +67,6 @@ const loginPage = () => {
                     router.push("/space");
                 }
             } else {
-                console.log(data);
-                console.log("ok nhi hai response");
                 toast.error(data.message);
             }
         } catch (error) {

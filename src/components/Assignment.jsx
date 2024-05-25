@@ -41,11 +41,9 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
             });
             if (res.ok) {
                 setOpen1(false);
-                console.log("Delete kardia bhai");
                 toast.success("Assignment deleted successfully");
                 await fetchAssignments();
             } else {
-                console.log("delete nhi hua bhai");
             }
         } catch (error) {
             toast.error("Some Error occured while deleting.");
@@ -74,7 +72,6 @@ const Assignment = ({ teacher, assignment, fetchAssignments }) => {
             });
             if (res.ok) {
                 setOpen2(false);
-                console.log("update ho gaya bhai");
                 toast.success("Assignment updated successfully");
                 await fetchAssignments();
             }

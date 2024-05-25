@@ -62,10 +62,6 @@ const index = () => {
    return (
       <section className="">
          <div
-            onClick={() => {
-               console.log("clicked");
-               toast("djdijdjdoijdiojdijoid");
-            }}
             className="px-16 cursor-pointer font_poppins_custom text-2xl font-medium py-5 border-b"
          >
             Create Space

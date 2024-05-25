@@ -24,7 +24,6 @@ const signup = () => {
     try {
       signInWithPopup(auth, provider)
         .then(async (result) => {
-          console.log(result);
           const user = result.user;
           await handleSignup(user?.providerData[0]);
         })
@@ -70,7 +69,6 @@ const signup = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        console.log("user add ho gaya");
         toast.success("Sign up Successfull");
         if(space_id){
           router.push(`/join-class?space_id=${space_id}&&email=${userDetails?.email}`);
@@ -78,8 +76,6 @@ const signup = () => {
             router.push("/space");
         }
       } else {
-        console.log(data.message);
-        console.log("ok nhi hai response");
         toast.error(data.message);
       }
     } catch (error) {

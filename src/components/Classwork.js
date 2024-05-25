@@ -117,7 +117,6 @@ const Classwork = ({ role }) => {
             if (res.ok) {
                 setOpen(false);
                 toast.success("Assignment created successfully");
-                console.log("assignment ban gaya bhai");
                 await fetchAssignments();
             }
             else {
@@ -142,7 +141,6 @@ const Classwork = ({ role }) => {
                 quiz_option3: option3,
                 quiz_option4: option4,
             }
-            console.log("yes sir");
             const res = await fetch(`${BACKEND_URL}/api/quizes/add_quiz`, {
                 method: "POST",
                 headers: {
@@ -155,11 +153,9 @@ const Classwork = ({ role }) => {
             if (res.ok) {
                 setOpen(false);
                 toast.success("Quiz created successfully");
-                console.log("quiz ban gaya bhai");
             }
             else {
 
-                console.log("ok nhi hai bhai");
             }
         } catch (error) {
             toast.error("Quiz creation failed");
