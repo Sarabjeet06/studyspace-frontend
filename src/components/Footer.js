@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <div className='bg-gray-100 px-20 pt-10 pb-2 text-xs text-black'>
+    <div className='bg-gray-200 px-20 pt-10 pb-2 text-xs text-black'>
         <div className='flex flex-col sm:flex-row  justify-between pb-8 border-b border-slate-300'>
             <div>
                 <div className='text-2xl font-bold'>StudySpace</div>
